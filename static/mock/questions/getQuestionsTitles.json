@@ -1,0 +1,14 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": [
+    {
+      "update_time": null,
+      "create_time": null,
+      "questions_title": "这是是第一题",
+      "questions_state": 1,
+      "id": 1,
+      "questions_type": 0
+    }
+  ]
+}

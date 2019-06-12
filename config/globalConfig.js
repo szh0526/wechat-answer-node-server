@@ -22,6 +22,11 @@ module.exports = function () {
     url: 'http://127.0.0.1:3999'
   }
 
+  //JavaAPI服务
+  global.API = {
+    url: NODE_ENV != 'test' ? '' : "http://10.255.72.159:8160"
+  };
+
   global.cookie_domain = NODE_ENV != 'test' ? '.natappfree.cc' : '.natappfree.cc';
   
   //CDN地址 此路径后面的/必须加 否则devserver启动异常

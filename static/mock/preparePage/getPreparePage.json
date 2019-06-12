@@ -1,0 +1,16 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": [
+    {
+      "prepare_state": 1,
+      "update_time": 1559404578000,
+      "must_pay": 0,
+      "create_time": 1559404574000,
+      "id": 1,
+      "prepare_desc": "准备页说明",
+      "sort_code": 0,
+      "prepare_content": "准备页"
+    }
+  ]
+}

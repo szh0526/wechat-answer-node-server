@@ -1,0 +1,53 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": {
+    "question": {
+      "question_state": 1,
+      "update_time": null,
+      "must_pay": 0,
+      "create_time": null,
+      "questions_id": 1,
+      "question_str": "第5个问题",
+      "id": 5
+    },
+    "answer": [
+      {
+        "update_time": 1559410574000,
+        "create_time": null,
+        "answer_str": "差不多",
+        "answer_state": 1,
+        "id": 1,
+        "sort_code": 4,
+        "answer_score": 3
+      },
+      {
+        "update_time": 1559410572000,
+        "create_time": null,
+        "answer_str": "不错",
+        "answer_state": 1,
+        "id": 2,
+        "sort_code": 3,
+        "answer_score": 5
+      },
+      {
+        "update_time": 1559410576000,
+        "create_time": null,
+        "answer_str": "很不错",
+        "answer_state": 1,
+        "id": 3,
+        "sort_code": 2,
+        "answer_score": 6
+      },
+      {
+        "update_time": 1559410570000,
+        "create_time": null,
+        "answer_str": "very good",
+        "answer_state": 1,
+        "id": 4,
+        "sort_code": 1,
+        "answer_score": 10
+      }
+    ]
+  }
+}
