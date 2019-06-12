@@ -1,7 +1,8 @@
 // 微信网页鉴权api接口对接工具类 
 // 具体文档请参考: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
 const qs = require('qs'),
-  request = require('request');
+  logger = require('../config/logger'),
+  request = require('request')
 
 // 通过code换取网页授权access_token
 function getWebAccessToken (code) {
@@ -18,10 +19,12 @@ function getWebAccessToken (code) {
     url: `${url}` + qs.stringify(params)
   }
   return new Promise((resolve, reject) => {
-    request(options, function (err, res, body) { 
-      if(err || !res){
-        reject(err ? err : new Error("请求异常!"));
-        return;
+    logger.info("请求微信参数:" + JSON.stringify(options));
+    request(options, function (err, res, body) {
+      if (err) {
+        logger.error(err);
+        reject(err)
+        return
       }
       resolve(body)
     })
@@ -44,10 +47,12 @@ function getUserInfo (access_token, openid) {
     url: `${url}` + qs.stringify(params)
   }
   return new Promise((resolve, reject) => {
+    logger.info("请求微信参数:" + JSON.stringify(options));
     request(options, function (err, res, body) {
-      if(err || !res){
-        reject(err ? err : new Error("请求异常!"));
-        return;
+      if (err) {
+        logger.error(err);
+        reject(err)
+        return
       }
       resolve(body)
     })
@@ -67,30 +72,19 @@ function authWebAccessToken (access_token, openid) {
     url: `${url}` + qs.stringify(params)
   }
   return new Promise((resolve, reject) => {
+    logger.info("请求微信参数:" + JSON.stringify(options));
     request(options, function (err, res, body) {
-      if(err || !res){
-        reject(err ? err : new Error("请求异常!"));
-        return;
+      if (err) {
+        logger.error(err);
+        reject(err)
+        return
       }
       resolve(body)
     })
   })
 }
 
-//刷新网页授权token
-function refreshWebAccessToken(){
-
-}
-
-//刷新基础授权token
-function refreshAccessToken(){
-
-}
-
 module.exports = {
   getWebAccessToken,
   getUserInfo,
-  authWebAccessToken,
-  refreshWebAccessToken,
-  refreshAccessToken
-}
+authWebAccessToken}

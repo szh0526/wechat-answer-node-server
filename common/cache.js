@@ -1,5 +1,6 @@
 'use strict'
 const redis = require('redis'),
+  logger = require('../config/logger'),
   client = redis.createClient(global.redis);
 
 client.select('0', (res) => {
@@ -11,7 +12,7 @@ client.on('connect', function () {
 })
 
 client.on('error', function (err) {
-  console.log('-----------redis连接失败-------------')
+  logger.error(err);
 })
 
 /** 
@@ -22,9 +23,10 @@ client.on('error', function (err) {
  */
 function set (key, val, expire) {
   return new Promise((resolve, reject) => {
+    logger.info("redis插入数据:" + JSON.stringify({key,val,expire}));
     client.set(key, val, function (err, result) {
       if (err) {
-        console.log('----------redis数据插入错误------------')
+        logger.error(err);
         reject(err)
         return;
       } else {
@@ -33,9 +35,10 @@ function set (key, val, expire) {
           client.expire(key, parseInt(expire))
         }
         if(result == "OK"){
+          logger.info(`redis插入数据成功!`);
           resolve(result)
         }else{
-          reject(new Error("redis数据插入失败!键名:" + key))
+          reject(new Error("redis数据插入失败!"));
         }
       }
     })
@@ -45,13 +48,15 @@ function set (key, val, expire) {
 // 获取数据
 function get (key) {
   return new Promise((resolve, reject) => {
+    logger.info("redis获取数据:" + key);
     // 读取JavaScript(JSON)对象
     client.get(key, function (err, result) {
       if (err) {
-        console.log('----------redis数据读取错误------------')
+        logger.error(err);
         reject(err)
         return;
       } else {
+        logger.info(`redis获取数据成功:` + JSON.stringify(result));
         resolve(result)
       }
     })
@@ -61,13 +66,15 @@ function get (key) {
 // 删除数据
 function del (id) {
   return new Promise((resolve, reject) => {
+    logger.info("redis删除数据:" + id);
     // 删除cache
     client.del(id, function (err, result) {
       if (err) {
-        console.log('----------redis数据读取错误------------')
+        logger.error(err);
         reject(err)
         return;
       } else {
+        logger.info(`redis删除数据成功!`);
         resolve(true)
       }
     })

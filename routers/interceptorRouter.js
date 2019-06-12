@@ -1,8 +1,10 @@
 const cache = require('../common/cache'),
-  util = require('../common/wxutil');
+  util = require('../common/wxutil'),
+  uaparser = require('ua-parser-js')
+  logger = require('../config/logger');
 
 const errorMsg = err => {
-  console.log(err)
+  logger.error(err);
   return `
       <h1>系统异常!</h1>
       <p>${err.message}</p>
@@ -13,8 +15,7 @@ const errorMsg = err => {
 function judgeArrInString (req, str) {
   var result = false; // 默认元素不在数组上面
   var arr = [
-    '/wxoauth/',
-    // '/api/'
+    '/wxoauth/'
   ]
 
   for (var i = 0, len = arr.length; i < len; i++) {
@@ -26,14 +27,14 @@ function judgeArrInString (req, str) {
   return result
 }
 
-function interceptorRouter (req, res, next) {
+function verifyIsLogin (req, res, next) {
   const _path = req.path,
     allowPath = judgeArrInString(req, _path),
-    key = req.cookies[wxWebAccessToken] || ''
+    key = req.cookies[wxWebAccessToken] || '';
 
   if (allowPath && !key) {
-    next()
-    return
+    next();
+    return;
   }
 
   cache.get(key)
@@ -43,13 +44,13 @@ function interceptorRouter (req, res, next) {
       }else {
         // 没有code则授权
         if (!req.query.code) {
-          let redirect_uri = `${REDIRECTURLPREFIX}${_path}`;
-          console.log("redirect_uri回调地址:" + redirect_uri);
-          res.redirect(`${OPENWXDOMAIN}/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=${SCOPE}&state=123#wechat_redirect`);
+          let redirect_uri = encodeURIComponent(`${REDIRECTURLPREFIX}${_path}`);
+          logger.info('redirect_uri回调地址:' + redirect_uri);
+          res.redirect(`${OPENWXDOMAIN}/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=${SCOPE}&state=123#wechat_redirect`)
           return;
         }
-        console.log("code值:" + req.query.code);
-        const code = req.query.code;
+        logger.info('code值:' + req.query.code);
+        const code = req.query.code
         util.getWebAccessToken(code)
           .then((data) => {
             const result = JSON.parse(data)
@@ -75,7 +76,7 @@ function interceptorRouter (req, res, next) {
                     domain: cookie_domain,
                     httpOnly: true
                   })
-                  res.redirect(`${REDIRECTURLPREFIX}/pages/answerIntroduce/answerIntroduce`);
+                  next();
                 })
                 .catch((err) => {
                   res.send(errorMsg(err))
@@ -92,4 +93,22 @@ function interceptorRouter (req, res, next) {
     })
 }
 
-module.exports = interceptorRouter
+function accessLogger(req, res) {
+  const ua = uaparser(req.headers['user-agent']),
+      timeStamp =  + new Date(),
+      deviceType = ua.device.type || "PC",
+      _url = req.protocol + "://" + req.headers.host + req.originalUrl;
+
+  const str = req.hostname + "|+|" + ua.browser.name + "&" + ua.browser.version + "|+|" + deviceType + "|+|" + ua.os.name + "&" + ua.os.version + "|+|" + timeStamp + "|+|" + _url;
+  logger.info("访问日志:" + str);
+}
+
+function interceptorRouter(req,res,next){
+  if(process.env.NODE_ENV === "prodution"){
+    verifyIsLogin(req,res,next);
+  }else{
+    next();
+  }
+  accessLogger(req,res);
+}
+module.exports = interceptorRouter;

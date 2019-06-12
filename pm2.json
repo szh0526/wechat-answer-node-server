@@ -1,0 +1,57 @@
+{
+    /**
+     * wechat-answer-node-server pm2配置
+     * PM2是node进程管理工具，处理node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等
+     * 官网：http://pm2.keymetrics.io/
+     * 常用命令 pm2 --help 或 http://blog.csdn.net/chengxuyuanyonghu/article/details/74910875
+     * pm2 restart all或指定进程 重启;pm2 reload all或指定进程 热部署,实现0s的无缝衔接
+     * pm2 delete all 或wechat-answer-node-server删除当前应用进程
+     * pm2 list 查看pm2列表
+     * pm2 kill 杀死进程
+     * 启动命令:
+        1.配置文件：pm2 start pm2.json --env test/dev  (--env参数指定运行的环境,默认production)
+        2.命令行：pm2 start app.js -i 4 --max-memory-restart 300M --env dev 
+     */
+    "apps": [{
+        "name": "wechat-answer-node-server", // 应用名称
+        "script": "app.js", // 应用程序的脚本路径
+        "instances": 4, //启用多少个实例，可用于负载均衡。如果-i 0或者-i max，则根据当前机器核数确定实例数目。
+        "max_memory_restart": "800M", //当内存超过800M时自动重启
+        "node_args": "--harmony", //开机自动启动
+        "min_uptime": "60s", //最小运行时间，这里设置的是60s即如果应用程序在60s内退出，pm2会认为程序异常退出，此时触发重启max_restarts设置数量
+        "max_restarts": 30, //设置应用程序异常退出重启的次数，默认15次（从0开始计数）
+        "merge_logs": true,
+        "exec_mode": "cluster_mode", //应用程序启动模式，这里设置的是cluster_mode（集群），默认是fork
+        "cwd": "./", //应用程序所在的目录
+        "error_file": "./logs/pm2/pm2-err.log", // 应用程序错误日志文件
+        "out_file": "./logs/pm2/pm2-out.log", // 应用程序普通日志文件
+        "pid_file": "./logs/pm2/pm2.pid", // 应用程序的pid文件
+        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        "env_test": {
+            "NODE_ENV": "test", // 开发环境
+            "PORT": 3999
+        },
+        "env_dev": {
+            "NODE_ENV": "development", // 测试环境
+            "PORT": 3999
+        },
+        "env": {
+            "NODE_ENV": "production", // 生产环境  process.env.NODE_ENV
+            "PORT": 3999 //process.env.PORT
+        },
+        "watch": [ // 监听文件变化时自动重启应用 "watch": false 生产和测试环境false 本地环境true 
+            "common",
+            "config",
+            "views",
+            "routers"
+        ],
+        "ignore_watch": [ // 从监控目录中排除
+            "node_modules",
+            "logs",
+            "static"
+        ],
+        "watch_options": {
+            "followSymlinks": false
+        }
+    }]
+}

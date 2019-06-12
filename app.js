@@ -5,11 +5,12 @@ const express = require('express'),
   globalConfig = require('./config/globalConfig')(),
   app = express(),
   cookieParser = require('cookie-parser'),
+  logger = require('./config/logger'),
   //Helmet-Express/Connect等Javascript Web应用安全的中间件
   helmet = require('helmet'),
   bodyParser = require('body-parser'),
+  pagesRouter = require('./routers/pagesRouter'),
   interceptorRouter = require('./routers/interceptorRouter'),
-  wxRouter = require('./routers/wxoauthRouter'),
   apiRouter = require('./routers/apiRouter');
 
 // 设置cookie
@@ -20,11 +21,11 @@ app.use(cookieParser())
 //csp 通过在http的响应头中设定csp的规则，可以规定当前网页可以加载的资源的白名单，从而减少网页受到XSS攻击的风险
 app.use(helmet.contentSecurityPolicy({
   directives: {
-      defaultSrc: ['\'none\''],
+      defaultSrc: ['\'self\''],
       connectSrc: ['*'],
       scriptSrc: ['\'self\'', 'localhost:8000', '\'unsafe-eval\'', '\'unsafe-inline\''],
       styleSrc: ['\'self\'', 'localhost:8000', '\'unsafe-inline\''],
-      fontSrc: ['\'self\'', 'localhost:8000', 'data:','at.alicdn.com'],
+      fontSrc: ['\'self\'', 'localhost:8000', 'data:','at.alicdn.com', 'img-cdn-qiniu.dcloud.net.cn'],
       mediaSrc: ['\'self\''],
       objectSrc: ['\'self\''],
       imgSrc: ['*', 'data:', 'about:'],
@@ -61,7 +62,7 @@ var allowCrossDomain = function (req, res, next) {
     res.sendStatus(200); // 让options请求快速返回
   else next()
 }
-app.all('/api/*', allowCrossDomain)
+app.all('*', allowCrossDomain)
 
 app.get('/', function (req, res) {
   res.writeHead(200, {
@@ -71,39 +72,31 @@ app.get('/', function (req, res) {
   res.end()
 })
 
-app.get('/answerIntroduce/index',function (req, res) {
-  res.render('index',{
-
-  });
-});
-
 app.use(function(req,res,next){
   interceptorRouter(req,res,next);
 })
 
+app.use("/wechatanswer",pagesRouter)
+
 app.use("/api",apiRouter);
-
-app.use("/wxoauth",wxRouter);
-
 
 //监听未捕获的异常
 process.on('uncaughtException', function(err) {
-  console.log("程序异常出错：" + err.stack);
+  logger.error(err);
 })
 
 //监听Promise没有被捕获的失败函数 
 process.on('unhandledRejection', function(err, promise) {
-  console.log("回调异常报错：" + err.stack);
+  logger.error(err);
 })
 
 process.on('exit', function() {
-  // 设置一个延迟执行
-  console.log('退出前执行');
+  logger.error("退出前执行");
 });
 
 // 启动监听服务
 app.listen(SERVER.port, function () {
-  console.log(
+  logger.info(
     `-----监听:${SERVER.port}端口服务已经启动
      -----node版本:${process.versions.node}
      -----node进程id:${process.pid}

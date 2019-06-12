@@ -1,6 +1,8 @@
 # ignore packages installed by npm
 .DS_Store
 node_modules
+/static/build
+/logs
 /.vscode
 *.git
 npm-debug.log*
