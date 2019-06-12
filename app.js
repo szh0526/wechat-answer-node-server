@@ -1,33 +1,60 @@
 'use strict'
 
 const express = require('express'),
-  // 获取全局配置
+  path = require('path'),
   globalConfig = require('./config/globalConfig')(),
-
-  // mock服务
-  mockServer = require('./config/mockServer'),
-
-  // 获取express对象
   app = express(),
-
-  // 获取cookie 对象
   cookieParser = require('cookie-parser'),
-
+  //Helmet-Express/Connect等Javascript Web应用安全的中间件
+  helmet = require('helmet'),
   bodyParser = require('body-parser'),
-  router = express.Router();
+  interceptorRouter = require('./routers/interceptorRouter'),
+  wxRouter = require('./routers/wxoauthRouter'),
+  apiRouter = require('./routers/apiRouter');
 
 // 设置cookie
 app.use(cookieParser())
+
+//防止跨站脚本攻击
+//csp 内容安全策略
+//csp 通过在http的响应头中设定csp的规则，可以规定当前网页可以加载的资源的白名单，从而减少网页受到XSS攻击的风险
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+      defaultSrc: ['\'none\''],
+      connectSrc: ['*'],
+      scriptSrc: ['\'self\'', 'localhost:8000', '\'unsafe-eval\'', '\'unsafe-inline\''],
+      styleSrc: ['\'self\'', 'localhost:8000', '\'unsafe-inline\''],
+      fontSrc: ['\'self\'', 'localhost:8000', 'data:','at.alicdn.com'],
+      mediaSrc: ['\'self\''],
+      objectSrc: ['\'self\''],
+      imgSrc: ['*', 'data:', 'about:'],
+      frameSrc: ['\'self\'']
+  }
+}));
+
+//过滤xss
+app.use(helmet.xssFilter());
+//隐藏 X-Powered-By: Express
+app.use(helmet.hidePoweredBy({ setTo: 'none' }));
+
+//配置静态目录 
+app.use(express.static(path.join(__dirname, "static"),{
+  maxAge:86400000 //静态资源缓存配置
+}));
 
 // 设置post下接收参数
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 
+//定义模板渲染的目录
+app.set('views', CWD + '/views');
+app.set("view engine","ejs");
+
 // 设置跨域访问 
 var allowCrossDomain = function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Origin', "*")
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, Ayuthorization, X-Requested-With')
+  res.setHeader('Access-Control-Allow-Headers', 'origin, Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
   res.setHeader('Access-Control-Max-Age', '3600')
   res.setHeader('Access-Control-Allow-Credentials', true)
   if (req.method == 'OPTIONS')
@@ -44,31 +71,35 @@ app.get('/', function (req, res) {
   res.end()
 })
 
-router.get('/*', function (req, res) {
-  let data = mockServer(req.path);
-  if (data) {
-    res.setHeader("Content-Type","application/json; charset=UTF-8");
-    res.status(200).json(data);
-  } else {
-    res.setHeader("Content-Type","application/json; charset=UTF-8");
-    res.status(500).json({message:'mockserver未获取到数据!'});
-  }
-  res.end();
+app.get('/answerIntroduce/index',function (req, res) {
+  res.render('index',{
+
+  });
+});
+
+app.use(function(req,res,next){
+  interceptorRouter(req,res,next);
 })
 
-router.post('/*', function (req, res) {
-  let data = mockServer(req.path);
-  if (data) {
-    res.setHeader("Content-Type","application/json; charset=UTF-8");
-    res.status(200).json(data);
-  } else {
-    res.setHeader("Content-Type","application/json; charset=UTF-8");
-    res.status(500).json({message:'mockserver未获取到数据!'});
-  }
-  res.end();
+app.use("/api",apiRouter);
+
+app.use("/wxoauth",wxRouter);
+
+
+//监听未捕获的异常
+process.on('uncaughtException', function(err) {
+  console.log("程序异常出错：" + err.stack);
 })
 
-app.use("/api",router)
+//监听Promise没有被捕获的失败函数 
+process.on('unhandledRejection', function(err, promise) {
+  console.log("回调异常报错：" + err.stack);
+})
+
+process.on('exit', function() {
+  // 设置一个延迟执行
+  console.log('退出前执行');
+});
 
 // 启动监听服务
 app.listen(SERVER.port, function () {
