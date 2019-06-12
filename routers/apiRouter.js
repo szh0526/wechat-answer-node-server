@@ -34,12 +34,12 @@ const getRequestOptions = (apiName, req, method) => {
   return Object.assign({}, defaultOpt, reverseOpt)
 }
 
-const defaultJson = (code, success, data) => {
+const defaultJson = (code, err) => {
   return {
-    success: success || false,
+    success: false,
     errorCode: code || '0019991001',
-    errorMsg: code ? error[code] : null,
-    data: data || {}
+    errorMsg: err ? err.message : error[code] ,
+    data: err.stack || ""
   }
 }
 
@@ -48,7 +48,7 @@ router.get('/introducePage/getIntroducePage', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/preparePage/getPreparePage', function (req, res) {
@@ -56,7 +56,7 @@ router.get('/preparePage/getPreparePage', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/questions/getQuestionsTitles', function (req, res) {
@@ -64,7 +64,7 @@ router.get('/questions/getQuestionsTitles', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/questions/getNextQuestion', function (req, res) {
@@ -72,7 +72,7 @@ router.get('/questions/getNextQuestion', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/questions/getPreviousQuestion', function (req, res) {
@@ -80,7 +80,7 @@ router.get('/questions/getPreviousQuestion', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/questions/getUserPayAmount', function (req, res) {
@@ -88,7 +88,7 @@ router.get('/questions/getUserPayAmount', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/questions/userShare', function (req, res) {
@@ -96,7 +96,7 @@ router.get('/questions/userShare', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userComment/getUserComment', function (req, res) {
@@ -104,7 +104,7 @@ router.get('/userComment/getUserComment', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userComment/saveUserComment', function (req, res) {
@@ -112,7 +112,7 @@ router.get('/userComment/saveUserComment', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userInfo/getUserPayInfo', function (req, res) {
@@ -120,7 +120,7 @@ router.get('/userInfo/getUserPayInfo', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userInfo/getUserQuestionsPayInfo', function (req, res) {
@@ -128,7 +128,7 @@ router.get('/userInfo/getUserQuestionsPayInfo', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userInfo/getUserInfo', function (req, res) {
@@ -136,7 +136,7 @@ router.get('/userInfo/getUserInfo', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userReport/getNextUserReport', function (req, res) {
@@ -144,7 +144,7 @@ router.get('/userReport/getNextUserReport', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userReport/getPreviousUserReport', function (req, res) {
@@ -152,7 +152,7 @@ router.get('/userReport/getPreviousUserReport', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
 
 router.get('/userReport/createUserReport', function (req, res) {
@@ -160,8 +160,10 @@ router.get('/userReport/createUserReport', function (req, res) {
     .then(response => {
       res.json(response)})
     .catch(err => {
-      res.json(defaultJson('0019991001', false, {}))})
+      res.json(defaultJson('0019991001', err))})
 })
+
+
 
 // router.get('/*', function (req, res) {
 //   let data = mockServer(req.path)

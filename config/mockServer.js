@@ -8,15 +8,17 @@
  * 4.前后端都完成后，前后端连接调试（前端修改配置向Real Server而不是Mock Server发送请求）
  */
 let fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    logger = require('./logger');
 
+const mockPath = path.join(process.cwd(), 'static/mock');
 /**
  * getPath 获取json文件绝对路径
  * @param  router    url路径
  * @return file
  */
 let getPath = (router) => {
-    return path.join('./static/mock', router + ".json");
+    return path.join(mockPath, router + ".json");
 }
 
 /**
@@ -26,8 +28,13 @@ let getPath = (router) => {
  */
 let getJsonByRouter = (router) => {
     let filepath = getPath(router);
-    //同步读取
-    return fs.readFileSync(filepath, 'utf-8');
+    let data = null;
+    try {
+        data = fs.readFileSync(filepath, 'utf-8');
+    } catch (error) {
+        logger.error(error);
+    }
+    return data;
 }
 
 /**
@@ -39,13 +46,9 @@ let getJsonByRouter = (router) => {
  * @return 响应json数据给浏览器
  */
 let mockServer = (path) => {
-    let router = path.replace("/api", ""),
+    let router = path.replace(API.url, ""),
         data = getJsonByRouter(router);
-    if (data && data.length > 0) {
-        return JSON.parse(data);
-    } else {
-        return JSON.parse(getJsonByRouter('error'));
-    }
+    return JSON.parse(data);
 };
 
 module.exports = mockServer;

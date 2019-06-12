@@ -50,18 +50,29 @@ class FetchApi {
           .then(_self.checkStatus)
           .then(_self.getResponse)
           .then(data => {
+            if (Object.prototype.toString.call(data) !== '[object Object]') {
+              let endTime = (new Date).getTime()
+              _self.error('error', (endTime - startTime), path, new Error('接口返回数据格式错误!'))
+              reject(new Error('接口返回数据格式错误!'))
+              return
+            }else {
+              return data
+            }
+          })
+          .then(data => {
             let endTime = (new Date).getTime()
             _self.error('success', (endTime - startTime), path)
             resolve(data)
           }, err => {
             let endTime = (new Date).getTime()
             _self.error('error', (endTime - startTime), path, err)
-            resolve(err)
-          }).catch(err => {
-          let endTime = (new Date).getTime()
-          _self.error('error', (endTime - startTime), path, err)
-          reject(err)
-        })
+            reject(err)
+          })
+          .catch(err => {
+            let endTime = (new Date).getTime()
+            _self.error('error', (endTime - startTime), path, err)
+            reject(err)
+          })
       })
     }
   }
@@ -167,7 +178,7 @@ class FetchApi {
     if (type == 'success') {
       logger.info(msg)
     } else if (type == 'error') {
-      error.message = msg + error.message
+      error.message = `${error.message} \r\n ${msg}`
       logger.error(error)
     }
   }
