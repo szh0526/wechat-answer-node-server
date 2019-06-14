@@ -8,7 +8,7 @@ client.select('0', (res) => {
 })
 
 client.on('connect', function () {
-  //console.log('-----------redis连接成功-------------')
+  logger.info("-----------redis连接成功-------------");
 })
 
 client.on('error', function (err) {

@@ -5,12 +5,13 @@
     "update_time": 1559798643000,
     "create_time": null,
     "user_id": 111,
-    "questions_id": 11,
+    "questions_id": "abc",
     "is_comment": 0,
+    "is_answered":0,
     "share_counts": 10,
     "id": 1,
     "is_pay": 1,
-    "question_id": 3,
+    "question_id": 0,
     "click_counts": 11,
     "user_state": 0
   }

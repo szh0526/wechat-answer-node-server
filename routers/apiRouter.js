@@ -155,6 +155,14 @@ router.get('/userReport/getPreviousUserReport', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
+router.get('/userReport/getUserReportPage', function (req, res) {
+  apiServer.request(getRequestOptions('getUserReportPage', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
 router.get('/userReport/createUserReport', function (req, res) {
   apiServer.request(getRequestOptions('createUserReport', req , 'post'))
     .then(response => {

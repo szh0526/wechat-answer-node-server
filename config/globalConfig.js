@@ -38,7 +38,7 @@ module.exports = function () {
 
   global.APPSECRET = NODE_ENV != 'test' ? '' : 'a9b09d953a829b171cbd6bc92a96f950'
 
-  global.REDIRECTURLPREFIX = NODE_ENV != 'test' ? '' : "http://rqgwwy.natappfree.cc"
+  global.REDIRECTURLPREFIX = NODE_ENV != 'test' ? '' : "http://pxhwyn.natappfree.cc"
 
   global.SCOPE = "snsapi_base"; //"snsapi_userinfo";
 

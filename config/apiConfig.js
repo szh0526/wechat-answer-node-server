@@ -27,6 +27,7 @@ let urls = {
     'getNextUserReport', // 获取报告下一页
     'getPreviousUserReport', // 报告上一页
     'createUserReport', // 生成报告
+    'getUserReportPage',//答题完成后说明页
   ]
 }
 

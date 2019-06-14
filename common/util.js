@@ -53,6 +53,7 @@ let transArray = (arrLike) => Array.prototype.slice.call(arrLike);
 let isEmptyObject = (obj) => Object.prototype.toString.call(obj) == "[object Object]" && Object.keys(obj).length == 0;
 
 module.exports = {
+    isJson,
     transArray,
     isObject,
     isArray,
