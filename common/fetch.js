@@ -45,7 +45,7 @@ class FetchApi {
         startTime = (new Date).getTime(),
         path = options.url
 
-      logger.info("访问java接口日志:" + JSON.stringify(options));
+      logger.info("node访问java接口日志:" + JSON.stringify(options));
       return new Promise(function (resolve, reject) {
         fetch(path, options)
           .then(_self.checkStatus)
