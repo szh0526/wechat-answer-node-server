@@ -40,6 +40,9 @@ function verifyIsLogin (req, res, next) {
   cache.get(key)
     .then(data => {
       if (data) {
+        data = JSON.parse(data);
+        //将openid传递给java接口校验一致性
+        req.openid = data.openid;
         next();
       }else {
         // 没有code则授权

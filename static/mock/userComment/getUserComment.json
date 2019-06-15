@@ -3,6 +3,8 @@
   "message": "操作成功",
   "data": {
     "commentStr": "啊啊阿斯蒂芬",
-    "commentScore": "9"
+    "accuracyScore": "1",
+    "practicabilityScore": "4",
+    "easyuseScore": "5"
   }
 }
