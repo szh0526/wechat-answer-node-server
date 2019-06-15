@@ -5,6 +5,7 @@
     "update_time": 1559798643000,
     "create_time": null,
     "user_id": 111,
+    "payAmount": "9.9",
     "questions_id": "abc",
     "is_comment": 1,
     "is_answered":0,
