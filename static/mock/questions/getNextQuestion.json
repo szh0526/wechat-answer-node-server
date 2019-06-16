@@ -2,52 +2,62 @@
   "code": 200,
   "message": "操作成功",
   "data": {
+    "total":60,
     "question": {
       "question_state": 1,
       "update_time": null,
       "must_pay": 0,
       "create_time": null,
       "questions_id": 1,
-      "question_str": "第7个问题",
-      "id": 11
+      "question_str": "5、当我情绪失控的时候,我会立刻意识到出去换个心情",
+      "id": 5
     },
     "answer": [
       {
         "update_time": 1559410574000,
         "create_time": null,
-        "answer_str": "差不多",
+        "answer_str": "A 非常不符合",
         "answer_state": 1,
         "id": 1,
         "isCheck": true,
-        "sort_code": 4,
-        "answer_score": 3
+        "sort_code": 1,
+        "answer_score": 1
       },
       {
         "update_time": 1559410572000,
         "create_time": null,
-        "answer_str": "不错",
+        "answer_str": "B 比较不符合",
         "answer_state": 1,
         "id": 2,
-        "sort_code": 3,
-        "answer_score": 5
+        "sort_code": 2,
+        "answer_score": 2
       },
       {
         "update_time": 1559410576000,
         "create_time": null,
-        "answer_str": "很不错",
+        "answer_str": "C 不好说",
         "answer_state": 1,
         "id": 3,
-        "sort_code": 2,
-        "answer_score": 6
+        "sort_code": 3,
+        "answer_score": 3
       },
       {
         "update_time": 1559410570000,
         "create_time": null,
-        "answer_str": "very good",
+        "answer_str": "D 比较符合",
         "answer_state": 1,
         "id": 4,
-        "sort_code": 1,
-        "answer_score": 10
+        "sort_code": 4,
+        "answer_score": 4
+      },
+      {
+        "update_time": 1559410570000,
+        "create_time": null,
+        "answer_str": "E 非常符合",
+        "answer_state": 1,
+        "id": 5,
+        "sort_code": 5,
+        "answer_score": 5
       }
     ]
   }
