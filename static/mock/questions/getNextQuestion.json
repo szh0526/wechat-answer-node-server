@@ -2,6 +2,7 @@
   "code": 200,
   "message": "操作成功",
   "data": {
+    "isEnd":0,
     "total":60,
     "question": {
       "question_state": 1,
@@ -9,8 +10,9 @@
       "must_pay": 0,
       "create_time": null,
       "questions_id": 1,
-      "question_str": "5、当我情绪失控的时候,我会立刻意识到出去换个心情",
-      "id": 5
+      "question_str": "6、当我情绪失控的时候,我会立刻意识到出去换个心情",
+      "qid": 6,
+      "id":6
     },
     "answer": [
       {
@@ -19,7 +21,6 @@
         "answer_str": "A 非常不符合",
         "answer_state": 1,
         "id": 1,
-        "isCheck": true,
         "sort_code": 1,
         "answer_score": 1
       },
