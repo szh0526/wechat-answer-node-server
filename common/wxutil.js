@@ -19,10 +19,60 @@ function getWebAccessToken (code) {
     url: `${url}` + qs.stringify(params)
   }
   return new Promise((resolve, reject) => {
-    logger.info("请求微信参数:" + JSON.stringify(options));
+    logger.info('请求微信网页授权access_token参数:' + JSON.stringify(options))
     request(options, function (err, res, body) {
       if (err) {
-        logger.error(err);
+        logger.error(err)
+        reject(err)
+        return
+      }
+      resolve(body)
+    })
+  })
+}
+
+// 换取基础授权access_token
+function getAccessToken() {
+  const url = `${APIDOMAIN}/cgi-bin/token?`
+  const params = {
+    appid: global.APPID,
+    secret: global.APPSECRET,
+    grant_type: 'client_credential'
+  }
+
+  const options = {
+    method: 'get',
+    url: `${url}` + qs.stringify(params)
+  }
+  return new Promise((resolve, reject) => {
+    logger.info('请求微信基础授权access_token参数:' + JSON.stringify(options))
+    request(options, function (err, res, body) {
+      if (err) {
+        logger.error(err)
+        reject(err)
+        return
+      }
+      resolve(body)
+    })
+  })
+}
+
+// 通过网页授权access_token换取jsapi_ticket
+function getJssdkTicket (access_token) {
+  const url = `${APIDOMAIN}/cgi-bin/ticket/getticket?`
+  const params = {
+    access_token: access_token,
+    type: 'jsapi'
+  }
+  const options = {
+    method: 'get',
+    url: `${url}` + qs.stringify(params)
+  }
+  return new Promise((resolve, reject) => {
+    logger.info('请求微信jssdk权限签名参数:' + JSON.stringify(options))
+    request(options, function (err, res, body) {
+      if (err) {
+        logger.error(err)
         reject(err)
         return
       }
@@ -47,10 +97,10 @@ function getUserInfo (access_token, openid) {
     url: `${url}` + qs.stringify(params)
   }
   return new Promise((resolve, reject) => {
-    logger.info("请求微信参数:" + JSON.stringify(options));
+    logger.info('请求微信参数:' + JSON.stringify(options))
     request(options, function (err, res, body) {
       if (err) {
-        logger.error(err);
+        logger.error(err)
         reject(err)
         return
       }
@@ -72,10 +122,10 @@ function authWebAccessToken (access_token, openid) {
     url: `${url}` + qs.stringify(params)
   }
   return new Promise((resolve, reject) => {
-    logger.info("请求微信参数:" + JSON.stringify(options));
+    logger.info('请求微信参数:' + JSON.stringify(options))
     request(options, function (err, res, body) {
       if (err) {
-        logger.error(err);
+        logger.error(err)
         reject(err)
         return
       }
@@ -86,5 +136,7 @@ function authWebAccessToken (access_token, openid) {
 
 module.exports = {
   getWebAccessToken,
+  getAccessToken,
   getUserInfo,
-authWebAccessToken}
+  authWebAccessToken,
+getJssdkTicket}

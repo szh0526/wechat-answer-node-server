@@ -20,14 +20,14 @@ const getRequestOptions = (apiName, req, method) => {
 
   let reverseOpt = {}
   if (method && method.toUpperCase() == 'POST') {
-    req.body.openid = req.openid || "";
+    req.body.openid = req[WXAUTHKEY].openid || "";
     reverseOpt = {
       method: 'post',
       dataType: 'json',
       data: req.body
     }
   } else {
-    req.query.openid = req.openid || "";
+    req.query.openid = req[WXAUTHKEY].openid || "";
     reverseOpt = {
       data: req.query
     }

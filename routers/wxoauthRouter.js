@@ -36,7 +36,7 @@
 //       }else {
 //         const {expires_in, openid} = result
 //         // openid为用户唯一id
-//         const key = `${wxWebAccessToken}_${openid}`
+//         const key = `${WXAUTHKEY}_${openid}`
 //         /**
 //          * 保存到redis中,由于微信的access_token是7200秒过期,
 //          * 存到redis中的数据减少60秒,设置为7140秒过期
@@ -47,7 +47,7 @@
 //         cache.set(key, JSON.stringify(result), expireTime)
 //           .then((data) => {
 //             // 设置key 跳转至首页
-//             res.cookie(wxWebAccessToken, key, {
+//             res.cookie(WXAUTHKEY, key, {
 //               maxAge: maxAge,
 //               path: '/',
 //               domain: cookie_domain,
@@ -67,7 +67,7 @@
 
 // //当SCOPE为非静默授权snsapi_userinfo时才能获取用户信息
 // router.get('/getUserInfo', function (req, res, next) {
-//   const key = req.cookies[wxWebAccessToken];
+//   const key = req.cookies[WXAUTHKEY];
 //   cache.get(key)
 //     .then((data) => {
 //       console.log('redis获取网页授权信息:' + data)

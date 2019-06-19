@@ -2,7 +2,7 @@
   "code": 200,
   "message": "操作成功",
   "data": {
-    "isEnd":0,
+    "isEnd":1,
     "total":60,
     "question": {
       "question_state": 1,

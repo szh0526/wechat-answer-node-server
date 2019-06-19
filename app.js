@@ -11,6 +11,7 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   pagesRouter = require('./routers/pagesRouter'),
   interceptorRouter = require('./routers/interceptorRouter'),
+  wxjssdkRouter = require('./routers/wxjssdkRouter'),
   apiRouter = require('./routers/apiRouter');
 
 // 设置cookie
@@ -79,6 +80,7 @@ app.use(function(req,res,next){
 app.use("/wechatanswer",pagesRouter)
 
 app.use("/api",apiRouter);
+app.use("/wxjssdk",wxjssdkRouter);
 
 //监听未捕获的异常
 process.on('uncaughtException', function(err) {

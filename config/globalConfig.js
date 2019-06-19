@@ -1,20 +1,20 @@
 'use strict'
 
 module.exports = function () {
-  // 环境变量
-  global.NODE_ENV = (process.env && process.env.NODE_ENV) ? process.env.NODE_ENV : 'test'
-
   // 项目根目录
   global.CWD = process.cwd()
+  // 环境变量
+  global.NODE_ENV = (process.env && process.env.NODE_ENV) ? process.env.NODE_ENV : 'test'; 
+  //是否生产环境
+  global.isProduction = NODE_ENV === "production";
 
   // #region redis配置
   global.redis = {
     'ip': '127.0.0.1',
     'port': '6379' // 防止端口号冲突
   }
-  global.wxWebAccessToken = 'wx_web_access_token'; // 网页授权token
-  global.wxAccessToken = 'wx_access_token'; // 基础授权token
   // #endregion
+  global.WXAUTHKEY = 'wx_auth_key'; // 前端token名
 
   // node服务地址
   global.SERVER = {
@@ -24,21 +24,21 @@ module.exports = function () {
 
   // JavaAPI服务
   global.API = {
-    url: NODE_ENV != 'test' ? '' : 'http://10.255.72.159:8160'
+    url: isProduction ? 'http://62.234.160.135:8080/assessment' : ''
   }
 
-  global.cookie_domain = NODE_ENV != 'test' ? '.natappfree.cc' : '.natappfree.cc'
+  global.cookie_domain = isProduction ? '.natappfree.cc' : '.natappfree.cc'
 
   // CDN地址 此路径后面的/必须加 否则devserver启动异常
-  global.PUBLICPATH = NODE_ENV != 'test' ? (SERVER.url + '/build/') : 'http://127.0.0.1:8000/'
+  global.PUBLICPATH = isProduction ? (SERVER.url + '/build/') : 'http://127.0.0.1:8000/'
 
   // #region 微信测试或正式公众号信息
 
-  global.APPID = NODE_ENV != 'test' ? '' : 'wxcb11c3655f5fc36f'
+  global.APPID = isProduction ? '' : 'wxcb11c3655f5fc36f'
 
-  global.APPSECRET = NODE_ENV != 'test' ? '' : 'a9b09d953a829b171cbd6bc92a96f950'
+  global.APPSECRET = isProduction ? '' : 'a9b09d953a829b171cbd6bc92a96f950'
 
-  global.REDIRECTURLPREFIX = NODE_ENV != 'test' ? '' : 'http://c6mgmu.natappfree.cc'
+  global.REDIRECTURLPREFIX = isProduction ? '' : 'http://5kj66v.natappfree.cc'
 
   global.SCOPE = 'snsapi_userinfo'; // "snsapi_base"
 
