@@ -4,9 +4,9 @@ module.exports = function () {
   // 项目根目录
   global.CWD = process.cwd()
   // 环境变量
-  global.NODE_ENV = (process.env && process.env.NODE_ENV) ? process.env.NODE_ENV : 'test'; 
-  //是否生产环境
-  global.isProduction = NODE_ENV === "production";
+  global.NODE_ENV = (process.env && process.env.NODE_ENV) ? process.env.NODE_ENV : 'test'
+  // 是否生产环境
+  global.isProduction = NODE_ENV === 'production'
 
   // #region redis配置
   global.redis = {

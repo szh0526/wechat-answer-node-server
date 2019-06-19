@@ -40,7 +40,7 @@ function verifyIsLogin (req, res, next) {
       return
     }
 
-    key = !!key ? crypto.aesDecrypt(key) : key;
+    key = !!key ? crypto.aesDecrypt(key) : key
 
     cache.get(key)
       .then(data => {
@@ -79,9 +79,9 @@ function verifyIsLogin (req, res, next) {
                           }else {
                             // openid为用户唯一id  用于存储redis
                             const key = `${WXAUTHKEY}_${web_token_data.openid}`
-                            //生成aes加密串 用于cookie值
+                            // 生成aes加密串 用于cookie值
                             const aesEncryptKey = crypto.aesEncrypt(key)
-                            //console.log(key, aesEncryptKey, crypto.aesDecrypt(aesEncryptKey))
+                            // console.log(key, aesEncryptKey, crypto.aesDecrypt(aesEncryptKey))
                             /**
                              * 保存到redis中,由于微信的access_token是7200秒过期,
                              * 存到redis中的数据减少60秒,设置为7140秒过期
@@ -134,8 +134,8 @@ function verifyIsLogin (req, res, next) {
         res.send(errorMsg(err))
       })
   } catch (error) {
-    logger.error(error);
-    next();
+    logger.error(error)
+    next()
   }
 }
 
@@ -157,4 +157,4 @@ function interceptorRouter (req, res, next) {
   }
   accessLogger(req, res)
 }
-module.exports = interceptorRouter;
+module.exports = interceptorRouter
