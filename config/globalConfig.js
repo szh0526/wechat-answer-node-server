@@ -27,7 +27,7 @@ module.exports = function () {
     url: isProduction ? 'http://62.234.160.135:8080/assessment' : ''
   }
 
-  global.cookie_domain = isProduction ? '.natappfree.cc' : '.natappfree.cc'
+  global.cookie_domain = isProduction ? '.natapp1.cc' : '.natapp1.cc'
 
   // CDN地址 此路径后面的/必须加 否则devserver启动异常
   global.PUBLICPATH = isProduction ? (SERVER.url + '/build/') : 'http://127.0.0.1:8000/'
@@ -38,7 +38,7 @@ module.exports = function () {
 
   global.APPSECRET = isProduction ? '' : 'a9b09d953a829b171cbd6bc92a96f950'
 
-  global.REDIRECTURLPREFIX = isProduction ? '' : 'http://5kj66v.natappfree.cc'
+  global.REDIRECTURLPREFIX = isProduction ? '' : 'http://sunzh.natapp1.cc'
 
   global.SCOPE = 'snsapi_userinfo'; // "snsapi_base"
 
