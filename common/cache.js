@@ -1,18 +1,39 @@
 'use strict'
 const redis = require('redis'),
   logger = require('../config/logger'),
-  client = redis.createClient(global.redis);
+  client = redis.createClient(global.redis.port, global.redis.host)
+
+if(global.isProduction){
+  client.auth(global.redis.pwd, function (err) {
+    if (err) {
+      logger.error(err)
+      return
+    }
+    logger.info('-----------auth认证通过-------------')
+  })
+}
+
+client.on('ready', function (err) {
+  if (err) {
+    logger.err(err)
+    return
+  }
+  logger.info('-----------redis登录成功-------------')
+})
 
 client.select('0', (res) => {
-  //console.log('-----------当前redis数据库为0-------------')
+  console.log('-----------当前redis数据库为0-------------')
 })
 
 client.on('connect', function () {
-  logger.info("-----------redis连接成功-------------");
+  logger.info('-----------redis连接成功-------------')
 })
 
 client.on('error', function (err) {
-  logger.error(err);
+  logger.error(err)
+  // end() 直接退出
+  // quit() 先将语句处理完再退出
+  client.quit()
 })
 
 /** 
@@ -23,22 +44,22 @@ client.on('error', function (err) {
  */
 function set (key, val, expire) {
   return new Promise((resolve, reject) => {
-    logger.info("redis插入数据:" + JSON.stringify({key,val,expire}));
+    logger.info('redis插入数据:' + JSON.stringify({key,val,expire}))
     client.set(key, val, function (err, result) {
       if (err) {
-        logger.error(err);
+        logger.error(err)
         reject(err)
-        return;
+        return
       } else {
         // 设置有效期
         if (!Number.isNaN(expire) && expire > 0) {
           client.expire(key, parseInt(expire))
         }
-        if(result == "OK"){
-          logger.info(`redis插入数据成功!`);
+        if (result == 'OK') {
+          logger.info(`redis插入数据成功!`)
           resolve(result)
-        }else{
-          reject(new Error("redis数据插入失败!"));
+        }else {
+          reject(new Error('redis数据插入失败!'))
         }
       }
     })
@@ -48,15 +69,15 @@ function set (key, val, expire) {
 // 获取数据
 function get (key) {
   return new Promise((resolve, reject) => {
-    logger.info("redis获取数据:" + key);
+    logger.info('redis获取数据:' + key)
     // 读取JavaScript(JSON)对象
     client.get(key, function (err, result) {
       if (err) {
-        logger.error(err);
+        logger.error(err)
         reject(err)
-        return;
+        return
       } else {
-        logger.info(`redis获取数据成功:` + JSON.stringify(result));
+        logger.info(`redis获取数据成功:` + JSON.stringify(result))
         resolve(result)
       }
     })
@@ -66,15 +87,15 @@ function get (key) {
 // 删除数据
 function del (id) {
   return new Promise((resolve, reject) => {
-    logger.info("redis删除数据:" + id);
+    logger.info('redis删除数据:' + id)
     // 删除cache
     client.del(id, function (err, result) {
       if (err) {
-        logger.error(err);
+        logger.error(err)
         reject(err)
-        return;
+        return
       } else {
-        logger.info(`redis删除数据成功!`);
+        logger.info(`redis删除数据成功!`)
         resolve(true)
       }
     })
@@ -84,5 +105,4 @@ function del (id) {
 module.exports = {
   get,
   set,
-  del
-}
+del}

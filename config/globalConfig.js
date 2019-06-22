@@ -1,6 +1,9 @@
 'use strict'
 
 module.exports = function () {
+  // 阿里云云服务器ip地址
+  const SERVERIP = '62.234.160.135'; // 或localhost
+
   // 项目根目录
   global.CWD = process.cwd()
   // 环境变量
@@ -9,10 +12,16 @@ module.exports = function () {
   global.isProduction = NODE_ENV === 'production'
 
   // #region redis配置
-  global.redis = {
-    'ip': '127.0.0.1',
-    'port': '6379' // 防止端口号冲突
+  global.redis = isProduction ? {
+    pwd: 'Ceping123',
+    host: SERVERIP,
+    port: '6379', // 防止端口号冲突
+  } : {
+    pwd: '',
+    host: '127.0.0.1',
+    port: '6379'
   }
+
   // #endregion
   global.WXAUTHKEY = 'wx_auth_key'; // 前端token名
 
@@ -24,21 +33,23 @@ module.exports = function () {
 
   // JavaAPI服务
   global.API = {
-    url: isProduction ? 'http://62.234.160.135:8080/assessment' : ''
+    url: isProduction ? `http://${SERVERIP}:8080/assessment` : ''
   }
 
-  global.cookie_domain = isProduction ? '.natapp1.cc' : '.natapp1.cc'
+  global.cookie_domain = isProduction ? '.cswouo.cn' : '.cswouo.cn'
 
   // CDN地址 此路径后面的/必须加 否则devserver启动异常
   global.PUBLICPATH = isProduction ? (SERVER.url + '/build/') : 'http://127.0.0.1:8000/'
 
   // #region 微信测试或正式公众号信息
 
-  global.APPID = isProduction ? '' : 'wxcb11c3655f5fc36f'
+  global.MERCHANTNO = '1540617221'; // 支付商户号：1540617221
 
-  global.APPSECRET = isProduction ? '' : 'a9b09d953a829b171cbd6bc92a96f950'
+  global.APPID = isProduction ? 'wx433c71a793816f6f' : 'wxcb11c3655f5fc36f'
 
-  global.REDIRECTURLPREFIX = isProduction ? '' : 'http://sunzh.natapp1.cc'
+  global.APPSECRET = isProduction ? '5e7a884d5936325cfb42340803b76c06' : 'a9b09d953a829b171cbd6bc92a96f950'
+
+  global.REDIRECTURLPREFIX = isProduction ? '' : 'http://www.cswouo.cn'
 
   global.SCOPE = 'snsapi_userinfo'; // "snsapi_base"
 
