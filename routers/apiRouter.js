@@ -22,14 +22,14 @@ const getRequestOptions = (apiName, req, method) => {
 
   let reverseOpt = {}
   if (method && method.toUpperCase() == 'POST') {
-    req.body.openid = openid;
+    req.body.openId = openid;
     reverseOpt = {
       method: 'post',
       dataType: 'json',
       data: req.body
     }
   } else {
-    req.body.openid = openid;
+    req.query.openId = openid;
     reverseOpt = {
       data: req.query
     }

@@ -77,7 +77,8 @@ function get (key) {
         reject(err)
         return
       } else {
-        logger.info(`redis获取数据成功:` + JSON.stringify(result))
+        //logger.info(`redis获取数据成功:` + JSON.stringify(result))
+        logger.info(`redis获取数据成功`)
         resolve(result)
       }
     })
