@@ -17,6 +17,7 @@ function judgeArrInString (req, str) {
   var result = false; // 默认元素不在数组上面
   var arr = [
     '/wxoauth/',
+    '/build/',
     '/favicon.ico'
   ]
 
@@ -52,7 +53,8 @@ function verifyIsLogin (req, res, next) {
         }else {
           // 没有code则授权
           if (!req.query.code) {
-            let redirect_uri = encodeURIComponent(`${REDIRECTURLPREFIX}${_path}`)
+            // let redirect_uri = encodeURIComponent(`${REDIRECTURLPREFIX}/wechatanswer/index`)
+            let redirect_uri = encodeURIComponent(`${REDIRECTURLPREFIX}${req.originalUrl}`)
             logger.info('redirect_uri回调地址:' + redirect_uri)
             res.redirect(`${OPENWXDOMAIN}/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=${SCOPE}&state=123#wechat_redirect`)
             return

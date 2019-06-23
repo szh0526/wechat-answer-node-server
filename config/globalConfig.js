@@ -49,7 +49,7 @@ module.exports = function () {
 
   global.APPSECRET = isProduction ? '5e7a884d5936325cfb42340803b76c06' : 'a9b09d953a829b171cbd6bc92a96f950'
 
-  global.REDIRECTURLPREFIX = isProduction ? '' : 'http://www.cswouo.cn'
+  global.REDIRECTURLPREFIX = isProduction ? 'http://www.cswouo.cn' : 'http://www.cswouo.cn'
 
   global.SCOPE = 'snsapi_userinfo'; // "snsapi_base"
 

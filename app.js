@@ -12,6 +12,7 @@ const express = require('express'),
   pagesRouter = require('./routers/pagesRouter'),
   interceptorRouter = require('./routers/interceptorRouter'),
   wxjssdkRouter = require('./routers/wxjssdkRouter'),
+  wxoauthRouter = require('./routers/wxoauthRouter'),
   apiRouter = require('./routers/apiRouter');
 
 // 设置cookie
@@ -22,9 +23,9 @@ app.use(cookieParser())
 //csp 通过在http的响应头中设定csp的规则，可以规定当前网页可以加载的资源的白名单，从而减少网页受到XSS攻击的风险
 app.use(helmet.contentSecurityPolicy({
   directives: {
-      defaultSrc: ['\'self\''],
+      defaultSrc: ['*'],
       connectSrc: ['*'],
-      scriptSrc: ['\'self\'', 'localhost:8000', '\'unsafe-eval\'', '\'unsafe-inline\''],
+      scriptSrc: ['\'self\'', 'res.wx.qq.com', 'localhost:8000', '\'unsafe-eval\'', '\'unsafe-inline\''],
       styleSrc: ['\'self\'', 'localhost:8000', '\'unsafe-inline\''],
       fontSrc: ['\'self\'', 'localhost:8000', 'data:','at.alicdn.com', 'img-cdn-qiniu.dcloud.net.cn'],
       mediaSrc: ['\'self\''],
@@ -41,7 +42,7 @@ app.use(helmet.hidePoweredBy({ setTo: 'none' }));
 
 //配置静态目录 
 app.use(express.static(path.join(__dirname, "static"),{
-  maxAge:86400000 //静态资源缓存配置
+  //maxAge:86400000 //静态资源缓存配置
 }));
 
 // 设置post下接收参数
@@ -54,7 +55,7 @@ app.set("view engine","ejs");
 
 // 设置跨域访问 
 var allowCrossDomain = function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', "*")
+  res.setHeader('Access-Control-Allow-Origin', "http://www.cswouo.cn")
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'origin, Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
   res.setHeader('Access-Control-Max-Age', '3600')
@@ -80,6 +81,7 @@ app.use(function(req,res,next){
 app.use("/wechatanswer",pagesRouter)
 
 app.use("/api",apiRouter);
+app.use("/wxoauth",wxoauthRouter);
 app.use("/wxjssdk",wxjssdkRouter);
 
 //监听未捕获的异常
