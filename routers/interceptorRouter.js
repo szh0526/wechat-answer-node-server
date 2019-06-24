@@ -59,7 +59,7 @@ function verifyIsLogin (req, res, next) {
             res.redirect(`${OPENWXDOMAIN}/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=${SCOPE}&state=123#wechat_redirect`)
             return
           }
-          const code = req.query.code
+          const code = req.query.code;
           logger.info('code值:' + code)
           util.getWebAccessToken(code)
             .then((data) => {
@@ -110,8 +110,13 @@ function verifyIsLogin (req, res, next) {
                                   httpOnly: true
                                 })
                                 // 将结果放在req请求中方便提取
-                                req[WXAUTHKEY] = redisVal
-                                next()
+                                req[WXAUTHKEY] = redisVal;
+                                //next();
+                                let url = req.originalUrl;
+                                if(url.indexOf('code') !== -1 ){
+                                  url = url.substring(0,url.indexOf('&code'));
+                                }
+                                res.redirect(`${url}`);
                               })
                               .catch((err) => {
                                 res.send(errorMsg(err))

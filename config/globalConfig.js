@@ -45,9 +45,9 @@ module.exports = function () {
 
   global.MERCHANTNO = '1540617221'; // 支付商户号：1540617221
 
-  global.APPID = isProduction ? 'wx433c71a793816f6f' : 'wxcb11c3655f5fc36f'
+  global.APPID = isProduction ? 'wx433c71a793816f6f' :  'wx433c71a793816f6f'//'wxcb11c3655f5fc36f'
 
-  global.APPSECRET = isProduction ? '5e7a884d5936325cfb42340803b76c06' : 'a9b09d953a829b171cbd6bc92a96f950'
+  global.APPSECRET = isProduction ? '5e7a884d5936325cfb42340803b76c06' : '5e7a884d5936325cfb42340803b76c06'//'a9b09d953a829b171cbd6bc92a96f950'
 
   global.REDIRECTURLPREFIX = isProduction ? 'http://www.cswouo.cn' : 'http://www.cswouo.cn'
 
