@@ -33,7 +33,7 @@ module.exports = function () {
 
   // JavaAPI服务
   global.API = {
-    url: isProduction ? `http://${SERVERIP}:80/assessment` : ''
+    url: `http://${SERVERIP}:80/assessment`
   }
 
   global.cookie_domain = isProduction ? '.cswouo.cn' : '.cswouo.cn'
