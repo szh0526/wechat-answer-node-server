@@ -111,12 +111,13 @@ function verifyIsLogin (req, res, next) {
                                 })
                                 // 将结果放在req请求中方便提取
                                 req[WXAUTHKEY] = redisVal;
-                                //next();
-                                let url = req.originalUrl;
-                                if(url.indexOf('code') !== -1 ){
-                                  url = url.substring(0,url.indexOf('&code'));
-                                }
-                                res.redirect(`${url}`);
+                                
+                                next();
+                                // let url = req.originalUrl;
+                                // if(url.indexOf('code') !== -1 ){
+                                //   url = url.substring(0,url.indexOf('&code'));
+                                // }
+                                // res.redirect(`${url}`);
                               })
                               .catch((err) => {
                                 res.send(errorMsg(err))
