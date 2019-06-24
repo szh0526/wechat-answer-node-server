@@ -113,11 +113,6 @@ function verifyIsLogin (req, res, next) {
                                 req[WXAUTHKEY] = redisVal;
                                 
                                 next();
-                                // let url = req.originalUrl;
-                                // if(url.indexOf('code') !== -1 ){
-                                //   url = url.substring(0,url.indexOf('&code'));
-                                // }
-                                // res.redirect(`${url}`);
                               })
                               .catch((err) => {
                                 res.send(errorMsg(err))
@@ -158,7 +153,7 @@ function accessLogger (req, res) {
 }
 
 function interceptorRouter (req, res, next) {
-  if (!global.isProduction) {
+  if (global.isProduction) {
     verifyIsLogin(req, res, next)
   }else {
     next()
