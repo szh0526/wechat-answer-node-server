@@ -2,13 +2,17 @@
   "code": 200,
   "message": "操作成功",
   "data": {
-    "update_time": 1559404040000,
-    "must_pay": 0,
-    "create_time": 1559404037000,
-    "questions_id":"abc",
-    "introduce_desc": "测试001",
-    "introduce_state": 1,
-    "introduce_content": "<div><img style='max-width: -webkit-fill-available;' src='https://imgco.xinli001.com/ceping/lingxi/scalePool/92a1fcdc5977412d81aa8f1bf667a955.png'/><p>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p></div><div><img style='max-width: -webkit-fill-available;' src='https://imgco.xinli001.com/ceping/lingxi/scalePool/92a1fcdc5977412d81aa8f1bf667a955.png'/></div><p>嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额额嘿嘿嘿嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额额嘿嘿嘿嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额额嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额嘿嘿嘿额额</p></div>",
-    "id": 1
+    "code": 200,
+    "message": "操作成功",
+    "data": [
+      {
+        "introduce_content": "http://www.cswouo.cn/build/static/image/abc/xxx.jpg",
+        "id": 1
+      },
+      {
+        "introduce_content": "http://www.cswouo.cn/build/static/image/abc/xxx.jpg",
+        "id": 2
+      }
+    ]
   }
 }

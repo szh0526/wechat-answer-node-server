@@ -3,6 +3,7 @@
 let urls = {
   'introducePage': [
     'getIntroducePage', // 介绍页
+    'getIntroduceQRCode',//二维码
   ],
   'preparePage': [
     'getPreparePage', // 测评准备页
@@ -13,6 +14,7 @@ let urls = {
     'getPreviousQuestion', // 获取上一个问题
     'getUserPayAmount', // 需要付款金额
     'userShare', // 记录分享次数
+    'userPay',//用户支付
   ],
   'userComment': [
     'getUserComment', // 获取用户评论
@@ -28,6 +30,9 @@ let urls = {
     'getPreviousUserReport', // 报告上一页
     'createUserReport', // 生成报告
     'getUserReportPage',//答题完成后说明页
+  ],
+  'orders':[
+    'unifiedOrder' //预支付
   ]
 }
 

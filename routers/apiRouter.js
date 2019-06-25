@@ -55,6 +55,14 @@ router.get('/introducePage/getIntroducePage', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
+router.get('/introducePage/getIntroduceQRCode', function (req, res) {
+  apiServer.request(getRequestOptions('getIntroduceQRCode', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
 router.get('/preparePage/getPreparePage', function (req, res) {
   apiServer.request(getRequestOptions('getPreparePage', req))
     .then(response => {
@@ -97,6 +105,14 @@ router.get('/questions/getUserPayAmount', function (req, res) {
 
 router.get('/questions/userShare', function (req, res) {
   apiServer.request(getRequestOptions('userShare', req, 'post'))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
+router.get('/questions/userPay', function (req, res) {
+  apiServer.request(getRequestOptions('userPay', req))
     .then(response => {
       res.json(response)})
     .catch(err => {
@@ -175,7 +191,13 @@ router.get('/userReport/createUserReport', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
-
+router.get('/orders/unifiedOrder', function (req, res) {
+  apiServer.request(getRequestOptions('unifiedOrder', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
 
 // router.get('/*', function (req, res) {
 //   let data = mockServer(req.path)
