@@ -111,14 +111,6 @@ router.get('/questions/userShare', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
-router.get('/questions/userPay', function (req, res) {
-  apiServer.request(getRequestOptions('userPay', req))
-    .then(response => {
-      res.json(response)})
-    .catch(err => {
-      res.json(defaultJson('0019991001', err))})
-})
-
 router.get('/userComment/getUserComment', function (req, res) {
   apiServer.request(getRequestOptions('getUserComment', req))
     .then(response => {
@@ -185,6 +177,14 @@ router.get('/userReport/getUserReportPage', function (req, res) {
 
 router.get('/userReport/createUserReport', function (req, res) {
   apiServer.request(getRequestOptions('createUserReport', req , 'post'))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
+router.get('/questions/userPay', function (req, res) {
+  apiServer.request(getRequestOptions('userPay', req))
     .then(response => {
       res.json(response)})
     .catch(err => {
