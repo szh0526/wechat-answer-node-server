@@ -2,7 +2,8 @@
 // 具体文档请参考: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
 const qs = require('qs'),
   logger = require('../config/logger'),
-  request = require('request')
+  request = require('request'),
+  apiConfig = require('../config/apiConfig')
 
 // 通过code换取网页授权access_token
 function getWebAccessToken (code) {
@@ -32,7 +33,7 @@ function getWebAccessToken (code) {
 }
 
 // 换取基础授权access_token
-function getAccessToken() {
+function getAccessToken () {
   const url = `${APIDOMAIN}/cgi-bin/token?`
   const params = {
     appid: global.APPID,
@@ -134,9 +135,29 @@ function authWebAccessToken (access_token, openid) {
   })
 }
 
+// java接口换取基础授权access_token
+function getUserToken () {
+  const options = {
+    method: 'get',
+    url: apiConfig['getUserToken'.toUpperCase()]
+  }
+  return new Promise((resolve, reject) => {
+    logger.info('请求java接口换取基础授权access_token参数')
+    request(options, function (err, res, body) {
+      if (err) {
+        logger.error(err)
+        reject(err)
+        return
+      }
+      resolve(body)
+    })
+  })
+}
+
 module.exports = {
   getWebAccessToken,
   getAccessToken,
   getUserInfo,
   authWebAccessToken,
-getJssdkTicket}
+  getJssdkTicket,
+getUserToken}

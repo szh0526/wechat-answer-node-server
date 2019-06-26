@@ -24,6 +24,7 @@ let urls = {
     'getUserPayInfo', // 查询多少人购买
     'getUserQuestionsPayInfo', // 获取用户对某个题库支付情况
     'getUserInfo', // 获取用户信息
+    'getUserToken', // 获取用户基础token
   ],
   'userReport': [
     'getNextUserReport', // 获取报告下一页

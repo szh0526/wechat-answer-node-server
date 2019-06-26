@@ -1,8 +1,8 @@
 const cache = require('../common/cache'),
-  util = require('../common/wxutil'),
+  wxutil = require('../common/wxutil'),
   uaparser = require('ua-parser-js'),
   logger = require('../config/logger'),
-  crypto = require('../common/crypto')
+  crypto = require('../common/crypto');
 
 const errorMsg = err => {
   logger.error(err)
@@ -61,19 +61,19 @@ function verifyIsLogin (req, res, next) {
           }
           const code = req.query.code;
           logger.info('code值:' + code)
-          util.getWebAccessToken(code)
+          wxutil.getWebAccessToken(code)
             .then((data) => {
               const web_token_data = JSON.parse(data)
               if (web_token_data.errcode) {
                 throw new Error(data)
               }else {
-                util.getAccessToken()
+                wxutil.getUserToken()
                   .then((data) => {
                     const base_token_data = JSON.parse(data)
                     if (base_token_data.errcode) {
                       throw new Error(data)
                     }else {
-                      util.getJssdkTicket(base_token_data.access_token)
+                      wxutil.getJssdkTicket(base_token_data.access_token)
                         .then((data) => {
                           const ticket_data = JSON.parse(data)
                           if (ticket_data.errmsg !== 'ok') {
