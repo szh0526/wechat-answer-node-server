@@ -69,11 +69,11 @@ function verifyIsLogin (req, res, next) {
               }else {
                 wxutil.getUserToken()
                   .then((data) => {
-                    const base_token_data = JSON.parse(data)
-                    if (base_token_data.errcode) {
-                      throw new Error(data)
+                    const base_token_data = JSON.parse(data);
+                    if (base_token_data.code !== 200) {
+                      throw new Error(base_token_data.message)
                     }else {
-                      wxutil.getJssdkTicket(base_token_data.access_token)
+                      wxutil.getJssdkTicket(base_token_data.data.accessToken)
                         .then((data) => {
                           const ticket_data = JSON.parse(data)
                           if (ticket_data.errmsg !== 'ok') {
@@ -96,7 +96,7 @@ function verifyIsLogin (req, res, next) {
                             // 取出ticket和basetoken存入redis
                             const redisVal = Object.assign({}, web_token_data, {
                               jsapi_ticket: ticket_data.ticket, // 调用微信JS接口的临时票据
-                              base_access_token: base_token_data.access_token, // 全局基础token
+                              base_access_token: base_token_data.data.accessToken, // 全局基础token
                               web_access_token: web_token_data.access_token // 网页授权token
                             })
 
