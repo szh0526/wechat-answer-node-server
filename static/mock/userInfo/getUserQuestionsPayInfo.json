@@ -2,21 +2,24 @@
   "code": 200,
   "message": "操作成功",
   "data": {
-    "update_time": 1559798643000,
-    "create_time": null,
-    "user_id": 111,
-    "payAmount": "9.9",
+    "titleImg": "www.baidu.com",
     "questions_id": "etwy",
-    "countDownTime": null,
-    "is_comment": 1,
-    "is_answered":0,
-    "share_counts": 10,
-    "id": 1,
-    "is_pay": 1,
+    "share_counts": 0,
+    "title": "测试11",
     "question_id": 0,
-    "click_counts": 11,
+    "countDownTime": null,
+    "click_counts": 0,
     "user_state": 0,
-		"title": "情商测试（专业版）",
-		"titleImg": "https://imgco.xinli001.com/ceping/lingxi/scalePool/92a1fcdc5977412d81aa8f1bf667a955.png"
+    "QRCode": "",
+    "payAmount": "1",
+    "user_id": 23,
+    "is_comment": 0,
+    "is_answered": 0,
+    "is_pay": 0,
+    "userinfo": {
+      "date": "2019-06-26",
+      "img": "http://thirdwx.qlogo.cn/mmopen/vDwntJFbiaftJJiaTDY9UsWLib32Hm6agpWIJQyrX0pXpeicArzND0AnjStVt6URtcnRpbdbUUMrSoLkkDG6DcYILA/132",
+      "name": "聪聪"
+    }
   }
 }
