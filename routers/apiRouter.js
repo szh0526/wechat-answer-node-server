@@ -55,6 +55,14 @@ router.get('/introducePage/getIntroducePage', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
+router.get('/introducePage/clickTest', function (req, res) {
+  apiServer.request(getRequestOptions('clickTest', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
 router.get('/introducePage/getIntroduceQRCode', function (req, res) {
   apiServer.request(getRequestOptions('getIntroduceQRCode', req))
     .then(response => {

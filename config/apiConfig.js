@@ -4,6 +4,7 @@ let urls = {
   'introducePage': [
     'getIntroducePage', // 介绍页
     'getIntroduceQRCode',//二维码
+    'clickTest' //介绍页点击开始测试
   ],
   'preparePage': [
     'getPreparePage', // 测评准备页
@@ -22,7 +23,7 @@ let urls = {
   ],
   'userInfo': [
     'getUserPayInfo', // 查询多少人购买
-    'getUserQuestionsPayInfo', // 获取用户对某个题库支付情况
+    'getUserQuestionsPayInfo', // 全局接口
     'getUserInfo', // 获取用户信息
     'getUserToken', // 获取用户基础token
   ],
