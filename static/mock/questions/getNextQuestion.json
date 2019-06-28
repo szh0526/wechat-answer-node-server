@@ -2,32 +2,34 @@
   "code": 200,
   "message": "操作成功",
   "data": {
-    "isEnd":1,
-    "total":60,
+    "isEnd": 1,
+    "total": 60,
     "question": {
       "question_state": 1,
       "update_time": null,
       "must_pay": 0,
       "create_time": null,
       "questions_id": 1,
-      "question_str": "6、当我情绪失控的时候,我会立刻意识到出去换个心情",
+      "question_str": "警告孩子，如果/她不吃饭，你会拿走或取消(食物之外的)某件事。",
+      "example_str": "例如:“如果你不把青菜吃饭完，下午就不许出去玩了！”",
       "qid": 6,
-      "id":6
+      "id": 6
     },
     "answer": [
       {
         "update_time": 1559410574000,
         "create_time": null,
-        "answer_str": "A 非常不符合",
+        "answer_str": "从不",
         "answer_state": 1,
         "id": 1,
+        "isCheck": true,
         "sort_code": 1,
         "answer_score": 1
       },
       {
         "update_time": 1559410572000,
         "create_time": null,
-        "answer_str": "B 比较不符合",
+        "answer_str": "很少",
         "answer_state": 1,
         "id": 2,
         "sort_code": 2,
@@ -36,7 +38,7 @@
       {
         "update_time": 1559410576000,
         "create_time": null,
-        "answer_str": "C 不好说",
+        "answer_str": "有时候",
         "answer_state": 1,
         "id": 3,
         "sort_code": 3,
@@ -45,7 +47,7 @@
       {
         "update_time": 1559410570000,
         "create_time": null,
-        "answer_str": "D 比较符合",
+        "answer_str": "经常",
         "answer_state": 1,
         "id": 4,
         "sort_code": 4,
@@ -54,7 +56,7 @@
       {
         "update_time": 1559410570000,
         "create_time": null,
-        "answer_str": "E 非常符合",
+        "answer_str": "总是",
         "answer_state": 1,
         "id": 5,
         "sort_code": 5,
