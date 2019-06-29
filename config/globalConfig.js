@@ -39,7 +39,7 @@ module.exports = function () {
   global.cookie_domain = isProduction ? '.52huashengmi.com' : '.52huashengmi.com'
 
   // CDN地址 此路径后面的/必须加 否则devserver启动异常
-  global.PUBLICPATH = isProduction ? (SERVER.url + '/build/') : 'http://127.0.0.1:8000/'
+  global.PUBLICPATH = isProduction ? (SERVER.url + '/build/') : 'http://127.0.0.1:8001/'
 
   // #region 微信测试或正式公众号信息
 

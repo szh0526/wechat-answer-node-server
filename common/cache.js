@@ -18,7 +18,7 @@ client.on('ready', function (err) {
     logger.err(err)
     return
   }
-  logger.info('-----------redis登录成功-------------')
+  //logger.info('-----------redis登录成功-------------')
 })
 
 client.select('0', (res) => {
@@ -26,7 +26,7 @@ client.select('0', (res) => {
 })
 
 client.on('connect', function () {
-  logger.info('-----------redis连接成功-------------')
+  //logger.info('-----------redis连接成功-------------')
 })
 
 client.on('error', function (err) {

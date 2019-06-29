@@ -25,9 +25,9 @@ app.use(helmet.contentSecurityPolicy({
   directives: {
       defaultSrc: ['*'],
       connectSrc: ['*'],
-      scriptSrc: ['\'self\'', 'res.wx.qq.com', 'localhost:8000', '\'unsafe-eval\'', '\'unsafe-inline\''],
-      styleSrc: ['\'self\'', 'localhost:8000', '\'unsafe-inline\''],
-      fontSrc: ['\'self\'', 'localhost:8000', 'data:','at.alicdn.com', 'img-cdn-qiniu.dcloud.net.cn'],
+      scriptSrc: ['\'self\'', 'res.wx.qq.com', 'localhost:8001', '\'unsafe-eval\'', '\'unsafe-inline\''],
+      styleSrc: ['\'self\'', 'localhost:8001', '\'unsafe-inline\''],
+      fontSrc: ['\'self\'', 'localhost:8001', 'data:','at.alicdn.com', 'img-cdn-qiniu.dcloud.net.cn'],
       mediaSrc: ['\'self\''],
       objectSrc: ['\'self\''],
       imgSrc: ['*', 'data:', 'about:'],
