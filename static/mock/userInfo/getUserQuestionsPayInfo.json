@@ -5,7 +5,7 @@
     "titleImg": "www.baidu.com",
     "questions_id": "etwy",
     "share_counts": 0,
-    "title": "评价标题",
+    "title": "儿童喂养方式问卷",
     "questions_title":"题库标题",
     "question_id": 0,
     "countDownTime": null,
@@ -16,10 +16,10 @@
     "user_id": 23,
     "is_test": 1,
     "is_comment": 0,
-    "is_answered": 0,
+    "is_answered": 1,
     "is_pay": 0,
     "userinfo": {
-      "date": "2019-06-26",
+      "date": "2019年06月26日",
       "img": "http://thirdwx.qlogo.cn/mmopen/vDwntJFbiaftJJiaTDY9UsWLib32Hm6agpWIJQyrX0pXpeicArzND0AnjStVt6URtcnRpbdbUUMrSoLkkDG6DcYILA/132",
       "name": "聪聪"
     }
