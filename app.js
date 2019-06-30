@@ -55,7 +55,7 @@ app.set("view engine","ejs");
 
 // 设置跨域访问 
 var allowCrossDomain = function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', "http://www.cswouo.cn")
+  res.setHeader('Access-Control-Allow-Origin', "http://www.52huashengmi.com")
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'origin, Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
   res.setHeader('Access-Control-Max-Age', '3600')
