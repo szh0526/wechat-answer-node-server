@@ -17,7 +17,8 @@ router.get('/getSignature', function (req, res) {
         if (base_token_data.code !== 200) {
           throw new Error(base_token_data.message)
         }else {
-          wxutil.getJssdkTicket(base_token_data.data.accessToken)
+          const accessToken = base_token_data.data.accessToken;
+          wxutil.getJssdkTicket(accessToken)
             .then((data) => {
               const ticket_data = JSON.parse(data)
               if (ticket_data.errmsg !== 'ok') {
@@ -26,6 +27,7 @@ router.get('/getSignature', function (req, res) {
                 let jsapi_ticket = ticket_data.ticket
                 let signature = sign(jsapi_ticket, req.query.url)
                 logger.info(`
+                  基础accessToken:${accessToken},
                   jsapi_ticket:${jsapi_ticket},
                   回调地址:${req.query.url},
                   权限签名数据:${JSON.stringify(signature)}
