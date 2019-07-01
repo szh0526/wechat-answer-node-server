@@ -19,10 +19,13 @@ const getRequestOptions = (apiName, req, method) => {
   }
 
   let openid = req[WXAUTHKEY] ? req[WXAUTHKEY].openid : "";
+  //网页token
+  let token = req[WXAUTHKEY] ? req[WXAUTHKEY].access_token : "";
 
   let reverseOpt = {}
   if (method && method.toUpperCase() == 'POST') {
     req.body.openId = openid;
+    req.body.token = token;
     reverseOpt = {
       method: 'post',
       dataType: 'json',
@@ -30,6 +33,7 @@ const getRequestOptions = (apiName, req, method) => {
     }
   } else {
     req.query.openId = openid;
+    req.query.token = token;
     reverseOpt = {
       data: req.query
     }
