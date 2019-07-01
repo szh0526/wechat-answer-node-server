@@ -126,7 +126,7 @@ function accessLogger (req, res) {
 }
 
 function interceptorRouter (req, res, next) {
-  if (!global.isProduction) {
+  if (global.isProduction) {
     verifyIsLogin(req, res, next)
   }else {
     next()
