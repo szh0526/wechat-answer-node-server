@@ -26,7 +26,7 @@ const getRequestOptions = (apiName, req, method) => {
     reverseOpt = {
       method: 'post',
       dataType: 'json',
-      data: req.body
+      data: Object.assign({}, req.query, req.body)
     }
   } else {
     req.query.openId = openid;
