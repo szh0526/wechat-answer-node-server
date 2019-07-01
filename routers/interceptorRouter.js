@@ -2,7 +2,7 @@ const cache = require('../common/cache'),
   wxutil = require('../common/wxutil'),
   uaparser = require('ua-parser-js'),
   logger = require('../config/logger'),
-  crypto = require('../common/crypto');
+  crypto = require('../common/crypto')
 
 const errorMsg = err => {
   logger.error(err)
@@ -59,7 +59,7 @@ function verifyIsLogin (req, res, next) {
             res.redirect(`${OPENWXDOMAIN}/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=${SCOPE}&state=123#wechat_redirect`)
             return
           }
-          const code = req.query.code;
+          const code = req.query.code
           logger.info('code值:' + code)
           wxutil.getWebAccessToken(code)
             .then((data) => {
@@ -67,61 +67,34 @@ function verifyIsLogin (req, res, next) {
               if (web_token_data.errcode) {
                 throw new Error(data)
               }else {
-                wxutil.getUserToken()
+                // openid为用户唯一id  用于存储redis
+                const key = `${WXAUTHKEY}_${web_token_data.openid}`
+                // 生成aes加密串 用于cookie值
+                const aesEncryptKey = crypto.aesEncrypt(key)
+                // console.log(key, aesEncryptKey, crypto.aesDecrypt(aesEncryptKey))
+                /**
+                 * 保存到redis中,由于微信的access_token是7200秒过期,
+                 * 存到redis中的数据减少60秒,设置为7140秒过期
+                 */
+                const {expires_in} = web_token_data
+                const expireTime = expires_in - 60
+                const maxAge = expires_in * 1000; // 单位毫秒
+                // key没有则新增token 有则覆盖token
+
+                // 存入redis
+                cache.set(key, JSON.stringify(web_token_data), expireTime)
                   .then((data) => {
-                    const base_token_data = JSON.parse(data);
-                    if (base_token_data.code !== 200) {
-                      throw new Error(base_token_data.message)
-                    }else {
-                      wxutil.getJssdkTicket(base_token_data.data.accessToken)
-                        .then((data) => {
-                          const ticket_data = JSON.parse(data)
-                          if (ticket_data.errmsg !== 'ok') {
-                            throw new Error(data)
-                          }else {
-                            // openid为用户唯一id  用于存储redis
-                            const key = `${WXAUTHKEY}_${web_token_data.openid}`
-                            // 生成aes加密串 用于cookie值
-                            const aesEncryptKey = crypto.aesEncrypt(key)
-                            // console.log(key, aesEncryptKey, crypto.aesDecrypt(aesEncryptKey))
-                            /**
-                             * 保存到redis中,由于微信的access_token是7200秒过期,
-                             * 存到redis中的数据减少60秒,设置为7140秒过期
-                             */
-                            const {expires_in} = web_token_data
-                            const expireTime = expires_in - 60
-                            const maxAge = expires_in * 1000; // 单位毫秒
-                            // key没有则新增token 有则覆盖token
+                    // 设置key 跳转至首页
+                    res.cookie(WXAUTHKEY, aesEncryptKey, {
+                      maxAge: maxAge,
+                      path: '/',
+                      domain: cookie_domain,
+                      httpOnly: true
+                    })
+                    // 将结果放在req请求中方便提取
+                    req[WXAUTHKEY] = web_token_data
 
-                            // 取出ticket和basetoken存入redis
-                            const redisVal = Object.assign({}, web_token_data, {
-                              jsapi_ticket: ticket_data.ticket, // 调用微信JS接口的临时票据
-                              base_access_token: base_token_data.data.accessToken, // 全局基础token
-                              web_access_token: web_token_data.access_token // 网页授权token
-                            })
-
-                            cache.set(key, JSON.stringify(redisVal), expireTime)
-                              .then((data) => {
-                                // 设置key 跳转至首页
-                                res.cookie(WXAUTHKEY, aesEncryptKey, {
-                                  maxAge: maxAge,
-                                  path: '/',
-                                  domain: cookie_domain,
-                                  httpOnly: true
-                                })
-                                // 将结果放在req请求中方便提取
-                                req[WXAUTHKEY] = redisVal;
-                                
-                                next();
-                              })
-                              .catch((err) => {
-                                res.send(errorMsg(err))
-                              })
-                          }
-                        }).catch((err) => {
-                        res.send(errorMsg(err))
-                      })
-                    }
+                    next()
                   })
                   .catch((err) => {
                     res.send(errorMsg(err))
@@ -153,7 +126,7 @@ function accessLogger (req, res) {
 }
 
 function interceptorRouter (req, res, next) {
-  if (global.isProduction) {
+  if (!global.isProduction) {
     verifyIsLogin(req, res, next)
   }else {
     next()
