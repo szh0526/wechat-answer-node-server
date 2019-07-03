@@ -43,7 +43,7 @@ module.exports = function () {
 
   // #region 微信测试或正式公众号信息
 
-  global.MERCHANTNO = '1540617221'; // 支付商户号：1540617221
+  global.MERCHANTNO = '111111111'; // 支付商户号 写在java不能暴露
 
   global.APPID = isProduction ? 'wx433c71a793816f6f' :  'wx433c71a793816f6f'//'wxcb11c3655f5fc36f'
 
