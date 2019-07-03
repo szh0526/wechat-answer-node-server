@@ -3,6 +3,7 @@
   "message": "操作成功",
   "data": {
     "total":60,
+    "isStart":1,
     "question": {
       "question_state": 1,
       "update_time": null,
@@ -20,7 +21,6 @@
         "answer_str": "从不",
         "answer_state": 1,
         "id": 1,
-        "isCheck":true,
         "sort_code": 1,
         "answer_score": 1
       },
@@ -29,6 +29,7 @@
         "create_time": null,
         "answer_str": "很少",
         "answer_state": 1,
+        "isCheck":true,
         "id": 2,
         "sort_code": 2,
         "answer_score": 2
