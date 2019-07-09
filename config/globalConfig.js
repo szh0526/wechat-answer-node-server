@@ -36,7 +36,7 @@ module.exports = function () {
     url: `http://${SERVERIP}:80/assessment`
   }
 
-  global.cookie_domain = isProduction ? '.52huashengmi.com' : '.52huashengmi.com'
+  global.cookie_domain = isProduction ? '.lianaijiazu.com' : '.lianaijiazu.com'
 
   // CDN地址 此路径后面的/必须加 否则devserver启动异常
   global.PUBLICPATH = isProduction ? (SERVER.url + '/build/') : 'http://127.0.0.1:8001/'
@@ -49,7 +49,7 @@ module.exports = function () {
 
   global.APPSECRET = isProduction ? '5e7a884d5936325cfb42340803b76c06' : '5e7a884d5936325cfb42340803b76c06'//'a9b09d953a829b171cbd6bc92a96f950'
 
-  global.REDIRECTURLPREFIX = isProduction ? 'http://www.52huashengmi.com' : 'http://www.52huashengmi.com'
+  global.REDIRECTURLPREFIX = isProduction ? 'http://www.lianaijiazu.com' : 'http://www.lianaijiazu.com'
 
   global.SCOPE = 'snsapi_userinfo'; // "snsapi_base"
 
