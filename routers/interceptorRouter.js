@@ -17,6 +17,7 @@ function judgeArrInString (req, str) {
   var result = false; // 默认元素不在数组上面
   var arr = [
     '/wxoauth/',
+    '/mAppAuth/',
     '/build/',
     '/favicon.ico'
   ]
@@ -28,6 +29,70 @@ function judgeArrInString (req, str) {
     }
   }
   return result
+}
+
+//小程序校验登录
+function verifyMiniAppLogin (req, res, next) {
+  try {
+    let _path = req.path,
+      allowPath = judgeArrInString(req, _path),
+      key = req.token || '';
+
+    if (allowPath && !key) {
+      next();
+      return
+    }
+
+    key = !!key ? crypto.aesDecrypt(key) : key;
+
+    cache.get(key)
+      .then(data => {
+        if (data) {
+          data = JSON.parse(data)
+          // 将结果放在req请求中方便提取
+          req[WXMINIAUTHKEY] = data;
+          next()
+        }else {
+          const code = req.query.code
+          logger.info('code值:' + code)
+          wxutil.getMiniAppSessionKey(code)
+            .then((data) => {
+              const session_key_data = JSON.parse(data);
+              if (session_key_data.errcode !== 0) {
+                throw new Error(data)
+              }else {
+                // openid为用户唯一id  用于存储redis
+                const key = `${WXMINIAUTHKEY}_${session_key_data.openid}`
+                // 生成aes加密串 用于token值
+                const aesEncryptKey = crypto.aesEncrypt(key);
+
+                // 存入redis
+                cache.set(key, JSON.stringify(session_key_data), 7200)
+                  .then((data) => {
+                    // 设置key 跳转至首页
+                    // 将结果放在req请求中方便提取
+                    req[WXMINIAUTHKEY] = session_key_data;
+
+                    console.log(aesEncryptKey);
+                    next()
+                  })
+                  .catch((err) => {
+                    res.send(errorMsg(err))
+                  })
+              }
+            })
+            .catch((err) => {
+              res.send(errorMsg(err))
+            })
+        }
+      })
+      .catch(err => {
+        res.send(errorMsg(err))
+      })
+  } catch (error) {
+    logger.error(error)
+    next()
+  }
 }
 
 function verifyIsLogin (req, res, next) {

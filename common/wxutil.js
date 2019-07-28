@@ -154,10 +154,38 @@ function getUserToken () {
   })
 }
 
+// 通过code换取小程序授权session_key
+function getMiniAppSessionKey (code) {
+  const url = `${APIDOMAIN}/sns/jscode2session?`
+  const params = {
+    appid: global.MINIAPPID,
+    secret: global.MINIAPPSECRET,
+    js_code: code,
+    grant_type: 'authorization_code'
+  }
+
+  const options = {
+    method: 'get',
+    url: `${url}` + qs.stringify(params)
+  }
+  return new Promise((resolve, reject) => {
+    logger.info('请求微信小程序授权session_key参数:' + JSON.stringify(options))
+    request(options, function (err, res, body) {
+      if (err) {
+        logger.error(err)
+        reject(err)
+        return
+      }
+      resolve(body)
+    })
+  })
+}
+
 module.exports = {
   getWebAccessToken,
   getAccessToken,
   getUserInfo,
   authWebAccessToken,
   getJssdkTicket,
-getUserToken}
+getUserToken,
+getMiniAppSessionKey}

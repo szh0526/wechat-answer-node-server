@@ -23,7 +23,8 @@ module.exports = function () {
   }
 
   // #endregion
-  global.WXAUTHKEY = 'wx_auth_key'; // 前端token名
+  global.WXAUTHKEY = 'wx_auth_key'; // h5 token名
+  global.WXMINIAUTHKEY = 'wx_mini_auth_key'; // 小程序token名
 
   // node服务地址
   global.SERVER = {
@@ -45,8 +46,14 @@ module.exports = function () {
 
   global.MERCHANTNO = '111111111'; // 支付商户号 写在java不能暴露
 
-  global.APPID = isProduction ? 'wx433c71a793816f6f' :  'wx433c71a793816f6f'//'wxcb11c3655f5fc36f'
+  //小程序APPID
+  global.MINIAPPID = 'wxb1944e6099def33e';
+  //小程序秘钥
+  global.MINIAPPSECRET = '0a4dc0ceddd328fc331bd9f1889db554';
 
+  //公众号APPID
+  global.APPID = isProduction ? 'wx433c71a793816f6f' :  'wx433c71a793816f6f'//'wxcb11c3655f5fc36f'
+  //公众号秘钥
   global.APPSECRET = isProduction ? '5e7a884d5936325cfb42340803b76c06' : '5e7a884d5936325cfb42340803b76c06'//'a9b09d953a829b171cbd6bc92a96f950'
 
   global.REDIRECTURLPREFIX = isProduction ? 'http://www.lianaijiazu.com' : 'http://www.lianaijiazu.com'

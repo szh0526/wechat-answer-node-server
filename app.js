@@ -13,6 +13,7 @@ const express = require('express'),
   interceptorRouter = require('./routers/interceptorRouter'),
   wxjssdkRouter = require('./routers/wxjssdkRouter'),
   wxoauthRouter = require('./routers/wxoauthRouter'),
+  mAppAuthRouter = require('./routers/mAppAuthRouter'),
   apiRouter = require('./routers/apiRouter');
 
 // 设置cookie
@@ -55,7 +56,7 @@ app.set("view engine","ejs");
 
 // 设置跨域访问 
 var allowCrossDomain = function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', "http://www.lianaijiazu.com")
+  res.setHeader('Access-Control-Allow-Origin', "*")
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'origin, Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
   res.setHeader('Access-Control-Max-Age', '3600')
@@ -83,6 +84,7 @@ app.use("/wechatanswer",pagesRouter)
 app.use("/api",apiRouter);
 app.use("/wxoauth",wxoauthRouter);
 app.use("/wxjssdk",wxjssdkRouter);
+app.use("/mAppAuth",mAppAuthRouter);
 
 //监听未捕获的异常
 process.on('uncaughtException', function(err) {
