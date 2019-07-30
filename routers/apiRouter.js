@@ -9,36 +9,53 @@ const getApiUrl = (method) => {
 }
 
 const getRequestOptions = (apiName, req, method) => {
-  let defaultOpt = {
-    url: getApiUrl(apiName),
-    method: 'get',
-    headers: {
-      // 解析互联网媒体类型,是处理表单和AJAX 请求最常用的方式
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    }
+  let reverseOpt = {},
+    defaultOpt = {
+      url: getApiUrl(apiName),
+      method: 'get',
+      headers: {
+        // 解析互联网媒体类型,是处理表单和AJAX 请求最常用的方式
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      }
   }
 
-  let openid = req[WXAUTHKEY] ? req[WXAUTHKEY].openid : "";
-  //网页token
-  let token = req[WXAUTHKEY] ? req[WXAUTHKEY].access_token : "";
-
-  let reverseOpt = {}
-  if (method && method.toUpperCase() == 'POST') {
-    req.body.openId = openid;
-    req.body.token = token;
-    reverseOpt = {
-      method: 'post',
-      dataType: 'json',
-      data: Object.assign({}, req.query, req.body)
+  // 小程序请求参数
+  if (req.query.type == 'xcx') {
+    const authOpt = {
+      openId : req[MAPPAUTHKEY] ? req[MAPPAUTHKEY].openid : ''
     }
-  } else {
-    req.query.openId = openid;
-    req.query.token = token;
-    reverseOpt = {
-      data: req.query
+    delete req.body.token;
+    if (method && method.toUpperCase() == 'POST') {
+      reverseOpt = {
+        method: 'post',
+        dataType: 'json',
+        data: Object.assign({}, req.query, req.body, authOpt)
+      }
+    } else {
+      delete req.query.token;
+      reverseOpt = {
+        data: Object.assign({}, req.query, authOpt)
+      }
+    }
+  }else {
+    const authOpt = {
+      openid : req[WXAUTHKEY] ? req[WXAUTHKEY].openid : '',
+      // 网页token
+      token : req[WXAUTHKEY] ? req[WXAUTHKEY].access_token : ''
+    }
+
+    if (method && method.toUpperCase() == 'POST') {
+      reverseOpt = {
+        method: 'post',
+        dataType: 'json',
+        data: Object.assign({}, req.query, req.body, authOpt)
+      }
+    } else {
+      reverseOpt = {
+        data: Object.assign({}, req.query, authOpt)
+      }
     }
   }
-
   return Object.assign({}, defaultOpt, reverseOpt)
 }
 
@@ -46,8 +63,8 @@ const defaultJson = (code, err) => {
   return {
     success: false,
     errorCode: code || '0019991001',
-    errorMsg: err ? err.message : error[code] ,
-    data: err.stack || ""
+    errorMsg: err ? err.message : error[code],
+    data: err.stack || ''
   }
 }
 
@@ -235,4 +252,4 @@ router.get('/orders/unifiedOrder', function (req, res) {
 //   res.end()
 // })
 
-module.exports = router;
+module.exports = router

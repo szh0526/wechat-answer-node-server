@@ -32,11 +32,11 @@ function judgeArrInString (req, str) {
 }
 
 //小程序校验登录
-function verifyMiniAppLogin (req, res, next) {
+function verifyMAppLogin (req, res, next) {
   try {
     let _path = req.path,
       allowPath = judgeArrInString(req, _path),
-      key = req.token || '';
+      key = req.query.token || '';
 
     if (allowPath && !key) {
       next();
@@ -50,40 +50,12 @@ function verifyMiniAppLogin (req, res, next) {
         if (data) {
           data = JSON.parse(data)
           // 将结果放在req请求中方便提取
-          req[WXMINIAUTHKEY] = data;
+          req[MAPPAUTHKEY] = data;
           next()
         }else {
-          const code = req.query.code
-          logger.info('code值:' + code)
-          wxutil.getMiniAppSessionKey(code)
-            .then((data) => {
-              const session_key_data = JSON.parse(data);
-              if (session_key_data.errcode !== 0) {
-                throw new Error(data)
-              }else {
-                // openid为用户唯一id  用于存储redis
-                const key = `${WXMINIAUTHKEY}_${session_key_data.openid}`
-                // 生成aes加密串 用于token值
-                const aesEncryptKey = crypto.aesEncrypt(key);
-
-                // 存入redis
-                cache.set(key, JSON.stringify(session_key_data), 7200)
-                  .then((data) => {
-                    // 设置key 跳转至首页
-                    // 将结果放在req请求中方便提取
-                    req[WXMINIAUTHKEY] = session_key_data;
-
-                    console.log(aesEncryptKey);
-                    next()
-                  })
-                  .catch((err) => {
-                    res.send(errorMsg(err))
-                  })
-              }
-            })
-            .catch((err) => {
-              res.send(errorMsg(err))
-            })
+          logger.info('获取小程序token对应redis数据失败! token:',key);
+          req[MAPPAUTHKEY] = null;
+          next();
         }
       })
       .catch(err => {
@@ -118,8 +90,7 @@ function verifyIsLogin (req, res, next) {
         }else {
           // 没有code则授权
           if (!req.query.code) {
-            // let redirect_uri = encodeURIComponent(`${REDIRECTURLPREFIX}/wechatanswer/index`)
-            let redirect_uri = encodeURIComponent(`${REDIRECTURLPREFIX}${req.originalUrl}`)
+            let redirect_uri = encodeURIComponent(`${SERVERURL}${req.originalUrl}`)
             logger.info('redirect_uri回调地址:' + redirect_uri)
             res.redirect(`${OPENWXDOMAIN}/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=${SCOPE}&state=123#wechat_redirect`)
             return
@@ -192,7 +163,11 @@ function accessLogger (req, res) {
 
 function interceptorRouter (req, res, next) {
   if (global.isProduction) {
-    verifyIsLogin(req, res, next)
+    if(req.query.type == 'xcx'){
+      verifyMAppLogin(req, res, next);
+    }else{
+      verifyIsLogin(req, res, next)
+    }
   }else {
     next()
   }

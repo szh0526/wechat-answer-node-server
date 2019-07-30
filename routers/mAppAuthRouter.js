@@ -24,12 +24,12 @@ router.get('/mAppLogin', function (req, res, next) {
       throw new Error(data)
     }else {
       // openid为用户唯一id  用于存储redis
-      const key = `${WXMINIAUTHKEY}_${session_key_data.openid}`
+      const key = `${MAPPAUTHKEY}_${session_key_data.openid}`
       // 生成aes加密串 用于token值
       const aesEncryptKey = crypto.aesEncrypt(key);
 
       // 存入redis
-      cache.set(key, JSON.stringify(session_key_data), 7200)
+      cache.set(key, JSON.stringify(session_key_data), 60 * 60 * 24 * 30)
         .then((data) => {
           res.json({
             code:200,

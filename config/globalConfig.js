@@ -3,6 +3,7 @@
 module.exports = function () {
   // 阿里云云服务器ip地址
   const SERVERIP = '62.234.160.135'; // 或localhost
+  global.SERVERURL = 'http://www.lianaijiazu.com';
 
   // 项目根目录
   global.CWD = process.cwd()
@@ -24,7 +25,7 @@ module.exports = function () {
 
   // #endregion
   global.WXAUTHKEY = 'wx_auth_key'; // h5 token名
-  global.WXMINIAUTHKEY = 'wx_mini_auth_key'; // 小程序token名
+  global.MAPPAUTHKEY = 'mapp_auth_key'; // 小程序token名
 
   // node服务地址
   global.SERVER = {
@@ -34,7 +35,7 @@ module.exports = function () {
 
   // JavaAPI服务
   global.API = {
-    url: `http://${SERVERIP}:80/assessment`
+    url: `${SERVERURL}/assessment`
   }
 
   global.cookie_domain = isProduction ? '.lianaijiazu.com' : '.lianaijiazu.com'
@@ -55,8 +56,6 @@ module.exports = function () {
   global.APPID = isProduction ? 'wx433c71a793816f6f' :  'wx433c71a793816f6f'//'wxcb11c3655f5fc36f'
   //公众号秘钥
   global.APPSECRET = isProduction ? '5e7a884d5936325cfb42340803b76c06' : '5e7a884d5936325cfb42340803b76c06'//'a9b09d953a829b171cbd6bc92a96f950'
-
-  global.REDIRECTURLPREFIX = isProduction ? 'http://www.lianaijiazu.com' : 'http://www.lianaijiazu.com'
 
   global.SCOPE = 'snsapi_userinfo'; // "snsapi_base"
 
