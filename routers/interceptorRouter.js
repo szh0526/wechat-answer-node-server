@@ -21,11 +21,14 @@ function judgeArrInString (req, str) {
     '/build/',
     '/favicon.ico'
   ]
-
-  for (var i = 0, len = arr.length; i < len; i++) {
-    var _arrVal = arr[i]
-    if (str.indexOf(_arrVal) != -1 && str != '/') {
-      return true
+  if(req.originalUrl.indexOf('.php') !== -1){
+    return true;
+  }else{
+    for (var i = 0, len = arr.length; i < len; i++) {
+      var _arrVal = arr[i]
+      if (str.indexOf(_arrVal) != -1 && str != '/') {
+        return true
+      }
     }
   }
   return result
@@ -166,7 +169,7 @@ function interceptorRouter (req, res, next) {
     if(req.query.type == 'xcx'){
       verifyMAppLogin(req, res, next);
     }else{
-      verifyIsLogin(req, res, next)
+      verifyIsLogin(req, res, next);
     }
   }else {
     next()
