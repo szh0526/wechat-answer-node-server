@@ -228,6 +228,31 @@ router.get('/orders/unifiedOrder', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
+router.get('/service/getCategorys', function (req, res) {
+  apiServer.request(getRequestOptions('getCategorys', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
+router.get('/service/getScales', function (req, res) {
+  apiServer.request(getRequestOptions('getScales', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
+router.get('/service/getAssessment', function (req, res) {
+  apiServer.request(getRequestOptions('getAssessment', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
+
 // router.get('/*', function (req, res) {
 //   let data = mockServer(req.path)
 //   if (data) {

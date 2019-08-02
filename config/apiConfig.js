@@ -35,6 +35,11 @@ let urls = {
   ],
   'orders':[
     'unifiedOrder' //预支付
+  ],
+  'service':[
+    'getCategorys',
+    'getScales',//获取测评列表
+    'getAssessment',//获取测评
   ]
 }
 

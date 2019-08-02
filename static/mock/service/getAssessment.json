@@ -10,7 +10,8 @@
       "category": "情感",
       "originalPrice": 88,
       "discountPrice": 8.8,
-      "countDesc": "4.7w人已测"
+      "countDesc": "4.7w人已测",
+      "status":"0"
     },
     {
       "count": 2911,
@@ -20,7 +21,8 @@
       "category": "情感",
       "originalPrice": 129,
       "discountPrice": 12.9,
-      "countDesc": "2911人已测"
+      "countDesc": "2911人已测",
+      "status":"0"
     },
     {
       "count": 3912,
@@ -30,7 +32,8 @@
       "category": "情感",
       "originalPrice": 119,
       "discountPrice": 11.9,
-      "countDesc": "3912人已测"
+      "countDesc": "3912人已测",
+      "status":"0"
     },
     {
       "count": 404907,
@@ -40,7 +43,8 @@
       "category": "情感",
       "originalPrice": 99,
       "discountPrice": 9.9,
-      "countDesc": "40.5w人已测"
+      "countDesc": "40.5w人已测",
+      "status":"1"
     },
     {
       "count": 3050,
@@ -50,7 +54,8 @@
       "category": "情感",
       "originalPrice": 129,
       "discountPrice": 12.9,
-      "countDesc": "3050人已测"
+      "countDesc": "3050人已测",
+      "status":"1"
     },
     {
       "count": 6599,
@@ -60,7 +65,8 @@
       "category": "情感",
       "originalPrice": 99,
       "discountPrice": 9.9,
-      "countDesc": "6599人已测"
+      "countDesc": "6599人已测",
+      "status":"1"
     }
   ]
 }
