@@ -14,7 +14,7 @@
     "QRCode": "",
     "payAmount": "1元",
     "user_id": 23,
-    "is_test": 1,
+    "is_test": 0,
     "is_comment": 0,
     "is_answered": 0,
     "is_pay": 0,

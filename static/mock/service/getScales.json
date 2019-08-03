@@ -3,6 +3,9 @@
   "msg": "请求接口成功",
   "data": [
     {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
       "count":"4700",
       "name": "性取向评估",
       "shortDescribe": "你是绝对的异性恋吗？",
@@ -13,6 +16,9 @@
       "countDesc": "4.7w人已测"
     },
     {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
       "count": 2911,
       "name": "爱情策略评估",
       "shortDescribe": "爱情需要一点策略，才能牢牢抓住它。",
@@ -23,6 +29,9 @@
       "countDesc": "2911人已测"
     },
     {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
       "count": 3912,
       "name": "爱情剧本测试",
       "shortDescribe": "恋爱关系中，你的地位有多高？",
@@ -33,6 +42,9 @@
       "countDesc": "3912人已测"
     },
     {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
       "count": 404907,
       "name": "专业爱情测评（专业版）",
       "shortDescribe": "什么样的异性最适合你？",
@@ -43,6 +55,9 @@
       "countDesc": "40.5w人已测"
     },
     {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
       "count": 3050,
       "name": "潜在出轨指数评估",
       "shortDescribe": "你的感情关系中，有哪些潜在危机？",
@@ -53,6 +68,9 @@
       "countDesc": "3050人已测"
     },
     {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
       "count": 6599,
       "name": "爱情依恋类型测试",
       "shortDescribe": "在恋爱中，如何与Ta更好地相处？",
