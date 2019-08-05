@@ -1,0 +1,45 @@
+{
+  "code": "200",
+  "msg": "请求接口成功",
+  "data": [
+    {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
+      "count":"4700",
+      "name": "性取向评估",
+      "shortDescribe": "你是绝对的异性恋吗？",
+      "introPicture": "/build/static/image/list/etwy.jpeg",
+      "category": "情感",
+      "originalPrice": 88,
+      "discountPrice": 8.8,
+      "countDesc": "4.7w人已测"
+    },
+    {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
+      "count": 2911,
+      "name": "爱情策略评估",
+      "shortDescribe": "爱情需要一点策略，才能牢牢抓住它。",
+      "introPicture": "/build/static/image/list/etwy.jpeg",
+      "category": "情感",
+      "originalPrice": 129,
+      "discountPrice": 12.9,
+      "countDesc": "2911人已测"
+    },
+    {
+      "questions_id": "etwy",
+      "channel": "123",
+      "page":"question",
+      "count": 3912,
+      "name": "爱情剧本测试",
+      "shortDescribe": "恋爱关系中，你的地位有多高？",
+      "introPicture": "/build/static/image/list/etwy.jpeg",
+      "category": "情感",
+      "originalPrice": 119,
+      "discountPrice": 11.9,
+      "countDesc": "3912人已测"
+    }
+  ]
+}

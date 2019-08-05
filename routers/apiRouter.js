@@ -228,7 +228,7 @@ router.get('/orders/unifiedOrder', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
-router.get('/service/getCategorys', function (req, res) {
+router.get('/questions/getCategorys', function (req, res) {
   apiServer.request(getRequestOptions('getCategorys', req))
     .then(response => {
       res.json(response)})
@@ -236,7 +236,7 @@ router.get('/service/getCategorys', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
-router.get('/service/getScales', function (req, res) {
+router.get('/questions/getScales', function (req, res) {
   apiServer.request(getRequestOptions('getScales', req))
     .then(response => {
       res.json(response)})
@@ -244,7 +244,7 @@ router.get('/service/getScales', function (req, res) {
       res.json(defaultJson('0019991001', err))})
 })
 
-router.get('/service/getAssessment', function (req, res) {
+router.get('/questions/getAssessment', function (req, res) {
   apiServer.request(getRequestOptions('getAssessment', req))
     .then(response => {
       res.json(response)})

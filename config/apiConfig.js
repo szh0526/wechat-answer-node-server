@@ -16,6 +16,9 @@ let urls = {
     'getUserPayAmount', // 需要付款金额
     'userShare', // 记录分享次数
     'userPay',//用户支付
+    'getCategorys',
+    'getScales',//获取测评列表
+    'getAssessment',//获取测评
   ],
   'userComment': [
     'getUserComment', // 获取用户评论
@@ -35,11 +38,6 @@ let urls = {
   ],
   'orders':[
     'unifiedOrder' //预支付
-  ],
-  'service':[
-    'getCategorys',
-    'getScales',//获取测评列表
-    'getAssessment',//获取测评
   ]
 }
 
