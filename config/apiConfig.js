@@ -35,6 +35,7 @@ let urls = {
     'getPreviousUserReport', // 报告上一页
     'createUserReport', // 生成报告
     'getUserReportPage',//答题完成后说明页
+    'getUserShareInfo',//获取当前用户分享了几次
   ],
   'orders':[
     'unifiedOrder' //预支付

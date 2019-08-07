@@ -39,7 +39,7 @@ const getRequestOptions = (apiName, req, method) => {
     }
   }else {
     const authOpt = {
-      openid : req[WXAUTHKEY] ? req[WXAUTHKEY].openid : '',
+      openId : req[WXAUTHKEY] ? req[WXAUTHKEY].openid : '',
       // 网页token
       token : req[WXAUTHKEY] ? req[WXAUTHKEY].access_token : ''
     }
@@ -251,6 +251,15 @@ router.get('/questions/getAssessment', function (req, res) {
     .catch(err => {
       res.json(defaultJson('0019991001', err))})
 })
+
+router.get('/userReport/getUserShareInfo', function (req, res) {
+  apiServer.request(getRequestOptions('getUserShareInfo', req))
+    .then(response => {
+      res.json(response)})
+    .catch(err => {
+      res.json(defaultJson('0019991001', err))})
+})
+
 
 
 // router.get('/*', function (req, res) {

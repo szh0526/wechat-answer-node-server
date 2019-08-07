@@ -1,0 +1,18 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": [
+    {
+      "img": "http://thirdwx.qlogo.cn/mmopen/vDwntJFbiaftJJiaTDY9UsWLib32Hm6agpWIJQyrX0pXpeicArzND0AnjStVt6URtcnRpbdbUUMrSoLkkDG6DcYILA/132",
+      "status": "1"
+    },
+    {
+      "img": "http://thirdwx.qlogo.cn/mmopen/vDwntJFbiaftJJiaTDY9UsWLib32Hm6agpWIJQyrX0pXpeicArzND0AnjStVt6URtcnRpbdbUUMrSoLkkDG6DcYILA/132",
+      "status": "0"
+    },
+    {
+      "img": "http://thirdwx.qlogo.cn/mmopen/vDwntJFbiaftJJiaTDY9UsWLib32Hm6agpWIJQyrX0pXpeicArzND0AnjStVt6URtcnRpbdbUUMrSoLkkDG6DcYILA/132",
+      "status": "0"
+    }
+  ]
+}
