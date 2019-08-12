@@ -29,7 +29,7 @@ router.get('/mAppLogin', function (req, res, next) {
       const aesEncryptKey = crypto.aesEncrypt(key);
 
       // 存入redis
-      cache.set(key, JSON.stringify(session_key_data), 60 * 60 * 24 * 30)
+      cache.set(key, JSON.stringify(session_key_data), 60 * 60 * 24 * 30 * 1000)
         .then((data) => {
           res.json({
             code:200,
